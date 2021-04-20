@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: "$t('GENERAL.NAV_OPTIONS[0]')",
+    name: "Home",
     component: () => import('../views/Home.vue')
   },
   {

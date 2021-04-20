@@ -10,6 +10,13 @@ import './assets/tailwind.css';
 import JwPagination from 'jw-vue-pagination';
 Vue.component('jw-pagination', JwPagination);
 import VueToast from 'vue-toast-notification';
+import moment from 'moment'
+
+import Embed from 'v-video-embed'
+Vue.use(Embed);
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+import 'swiper/swiper-bundle.css'
+Vue.use(VueAwesomeSwiper)
 
 import VueI18n from 'vue-i18n'
 import { locale as zh } from './i18n/zh.js'     
@@ -53,7 +60,7 @@ Vue.component('Loading', Loading);
 
 Vue.config.productionTip = false;
 Vue.prototype.$axios = axios;
-
+Vue.prototype.$moment = moment
 
 new Vue({
 	router,

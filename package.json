@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --mode development",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
@@ -15,10 +15,14 @@
     "core-js": "^3.6.5",
     "epic-spinners": "^1.1.0",
     "jw-vue-pagination": "^1.0.3",
+    "moment": "^2.29.1",
     "postcss": "^7.0.35",
     "scrollreveal": "^4.0.9",
+    "swiper": "^6.5.7",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.1.0",
+    "v-video-embed": "^1.0.8",
     "vue": "^2.6.11",
+    "vue-awesome-swiper": "^4.1.1",
     "vue-axios": "^3.2.4",
     "vue-i18n": "^8.24.3",
     "vue-loading-overlay": "^3.4.2",
