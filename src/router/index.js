@@ -26,11 +26,13 @@ const routes = [
     children: [
       {
         path:'people/:id',
-        component: () => import('../views/People')
+        component: () => import('../views/People'),
+        meta: { transition: 'fade-in-up' },
       },
       {
         path:'movie/:id',
-        component: () => import('../views/Movie')
+        component: () => import('../views/Movie'),
+        meta: { transition: 'fade-in-left' },
       },  
     ]
   },
@@ -42,7 +44,10 @@ const routes = [
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
+  scrollBehavior() {
+    document.getElementById('app').scrollIntoView();
+  }
 })
 
 export default router

@@ -57,7 +57,7 @@ $neon-text:#d65f57;
 .search-box {
     position: relative;
     background: #000;
-    border:1px solid white;
+    border:1px solid rgb(77, 76, 76);
     height: 45px;
     border-radius: 40px;
     padding: 8px;            
@@ -75,10 +75,10 @@ $neon-text:#d65f57;
 
 h1 {
   font-size: .9rem;
-  font-family: 'Black Ops One', cursive;
+  font-family: 'Eagle Lake', cursive;
   padding: 10px;
   color: #fff;
-  border: .1rem solid #fff;
+  border: 2px solid #fff;
   border-radius: 10px;
   
   animation: flicker 1.5s infinite alternate;     

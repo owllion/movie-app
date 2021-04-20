@@ -11,12 +11,15 @@ import JwPagination from 'jw-vue-pagination';
 Vue.component('jw-pagination', JwPagination);
 import VueToast from 'vue-toast-notification';
 import moment from 'moment'
-
 import Embed from 'v-video-embed'
 Vue.use(Embed);
+
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/swiper-bundle.css'
 Vue.use(VueAwesomeSwiper)
+
+import VuePageTransition from 'vue-page-transition'
+Vue.use(VuePageTransition)
 
 import VueI18n from 'vue-i18n'
 import { locale as zh } from './i18n/zh.js'     
@@ -51,9 +54,11 @@ Vue.use(Loading, {
 	canCancel: false,
 	width: 100,
 	height: 100,
-	backgroundColor: '#FFD485',
+	backgroundColor: '#000000',
 	isFullPage: true,
-	opacity: 0.7
+	opacity: 1,
+	blur:'10px',
+	color:'red'
 });
 
 Vue.component('Loading', Loading);

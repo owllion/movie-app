@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <Swiper/>
-     <button @click='getInfo()'>test</button>
+  <div class="w-full h-full bg-black">
+    <Swiper :list = list  type='LATEST' />
      <div v-for='(item,i) in list' :key='`${item}${i}`'>
        <div class="text-center">
          <router-link :to='`/details/movie/${item.id}`'>
@@ -24,21 +23,15 @@ export default {
   data () {
     return {
       keywords:'',
-      list:[]
+      list:[],
     }
   },
-  methods: {
-    setLang (value) {
-      this.$store.commit('setLang', value);
-      this.$i18n.locale = value;
-      localStorage.setItem('lang', value);
-    },
-    async getInfo() {
-    const baseUrl  = 'https://api.themoviedb.org/3'
-     const {data: {results}}= await this.$axios.get(`${baseUrl}/movie/popular?api_key=64a181c4f1c07039374331f8479761ba&language=en-US&page=1`)
+  async created(){  
+     const { data: {results} } = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/movie/popular?api_key=${process.env.VUE_APP_KEY}&language=en-US&page=1`)
+     
      console.log(results)
      this.list = results
-    }
+
   }
 }
 </script>

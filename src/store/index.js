@@ -10,15 +10,21 @@ const vuexLocalStorage = new VuexPersist({
 
 const store = new Vuex.Store({
     state: {
-      lang: null 
+      lang: null,
+      isLoading:false 
     },
     mutations: {    
       setLang (state, value) {
         state.lang = value;
+      },
+      setLoading (state, value) {
+        state.isLoading = value
       }
     },
     actions: {},
-    modules: {},
+    getters: {
+      isLoading: state => state.isLoading
+    },
     plugins: [vuexLocalStorage.plugin]
   })
   
