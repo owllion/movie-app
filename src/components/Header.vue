@@ -1,6 +1,7 @@
 <template>
   <div class="text-white">
-    <nav class="flex justify-evenly items-center">
+    <transition name="slide-side">
+    <nav class="fixed w-full z-20 h-20 py-2 px-0 transition duration-700 transform flex justify-evenly items-center bg-black " v-show='nav'>
 
     <router-link to='/'>
     <h1 class="tracking-widest">FilmClub</h1>
@@ -19,18 +20,24 @@
           </router-link>
         </li>
         <li class="pt-3">
-          <router-link to='/discover'>
+          <router-link to='/profile'>
          <box-icon name='binoculars' type='solid' color='#ffffff' animation='tada-hover'  size='sm'></box-icon>
           </router-link>
         </li>
-      </ul>
+      </ul>   
     </div>
     </nav>
+    </transition>
+
+    <div class="fixed top-6 right-20 z-50">
+       <box-icon name='menu' color='#ffffff' size='md' class="cursor-pointer" @click='setNav'></box-icon>
+     </div>
    </div>
 
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
@@ -38,6 +45,22 @@ export default {
       
     }
   },
+  methods: {
+    setNav() {
+      this.nav = !this.nav
+    }
+  },
+  computed: {
+    ...mapGetters(['showNav']),
+    nav: {
+      get(){
+        return this.showNav
+      },
+      set(value) {
+        return this.$store.commit('setNav', value)
+      }
+    }
+  }
 }
 </script>
 
@@ -45,15 +68,14 @@ export default {
 $neon-border:#911258;
 $neon-text:#d65f57;
 
- nav {
-   background: transparent;
-   position: fixed;
-   width: 100%;
-   z-index: 1000;
-   height: 80px;
-   padding-top:2rem;
-   margin-bottom: 100px;
- }
+.slide-side-enter-active,
+.slide-side-leave-active {
+  transition: all 0.3s ease-out;
+}
+.slide-side-enter,
+.slide-side-leave-to {
+  opacity: 0;
+}
 .search-box {
     position: relative;
     background: #000;

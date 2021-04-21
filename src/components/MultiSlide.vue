@@ -1,11 +1,11 @@
 <template>
    <swiper class="swiper " :options="swiperOption" v-if='list' >
     <swiper-slide v-for='(item,i) in list' :key='`${item}${i}`' >  
-       <div class="relative">
+       <div class="relative text-center tracking-widest">
          <router-link :to='`/details/movie/${item.id}`' class="overflow-hidden">
          <img :src='`https://image.tmdb.org/t/p/w185/${item.poster_path}`' alt="No Image :(" class="rounded-xl w-full h-64">
          </router-link>
-        <h5 class="w-48 pt-5">{{item.title}}</h5>
+        <h5 class="w-48 pt-5 text-white">{{item.title}}</h5>
         <span class="tag absolute rounded-xl bg-black  text-white px-3 font-bold align-middle"><box-icon name='star' type='solid' flip='horizontal' animation='spin' color='#f4ec15' class="align-middle pr-2" ></box-icon>{{item.vote_average}}</span>
        </div>
     </swiper-slide>

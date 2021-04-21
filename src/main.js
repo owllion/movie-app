@@ -13,7 +13,8 @@ import VueToast from 'vue-toast-notification';
 import moment from 'moment'
 import Embed from 'v-video-embed'
 Vue.use(Embed);
-
+import Notifications from 'vue-notification'
+Vue.use(Notifications)
 
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import 'swiper/swiper-bundle.css'

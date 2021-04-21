@@ -4,7 +4,12 @@
     <!--movie-img-->
     <section class="relative movie-img overflow-hidden w-full h-screen pb-10"> 
       <div class="backdrop w-full h-full absolute top-0 left-0 z-10 pointer-events-none"></div> 
-      <box-icon class="absolute right-36 top-24 cursor-pointer" name='heart' type='solid' animation='tada' color='#FF0909' size="lg"></box-icon>
+      <div class="back-icon absolute left-36 top-24 z-10">
+        <router-link to='/'>
+          <box-icon name='chevron-left' type='solid' animation='tada' flip='vertical' color='#ffffff' size='lg'></box-icon>
+        </router-link>
+      </div>
+      <!-- <box-icon class="absolute right-36 top-24 cursor-pointer" name='heart' type='solid' animation='tada' color='#FF0909' size="lg"></box-icon> -->
       <p class="tagline text-white text-5xl absolute z-10 top-1/2 left-28 md:text-3xl md:top-64">{{tagline}}</p>
 
       <!--movie-info-->
@@ -19,10 +24,12 @@
              inactive-color="#fff"
              active-color="#f6bb32"
              :star-size="10"
+             v-model='rating'
+             @rating-selected ='movieRating(rating)'
               />
              </div>
 
-             <p>{{status}} | {{upperLang}} </p>
+             <p>{{status}} | <span class="uppercase">{{lang}}</span> </p>
              <p>{{ filter_genres }}</p>
          </div>
          <!--movie-info-->
@@ -93,6 +100,8 @@ export default {
   data() {
     return {
       scrollReveal: scrollReveal(),
+      rating:0,
+      movieId:'',
       id:'',
       backdrop:'',
       title:'',
@@ -108,10 +117,46 @@ export default {
       lang:''
     }
   },
+  methods: {
+    async movieRating(rating) {
+      console.log('tett')
+      console.log(rating)
+      if( !this.$store.state.guest_session_id ) {
+        this.$notify({
+              group: 'foo',
+              type: 'warn',
+              title:'login please!',
+              text: 'Oh<b> No!</b>',
+              duration: 5000,
+              speed: 1000 
+        })
+        return 
+      }else {
+        try {
+             await this.$axios.post(`${process.env.VUE_APP_BASEURL}/movie/${this.movieId}/rating?api_key=${process.env.VUE_APP_KEY}&guest_session_id=${this.$store.state.guest_session_id}`, { 'value':rating } )
+//           await this.$axios.post('https://api.themoviedb.org/3/movie/581387/rating?api_key=64a181c4f1c07039374331f8479761ba&guest_session_id=a56bcdf7b4a0b4004f9ae17ec86406bd', {
+//   "value": 8.5
+// })
+           this.$notify({
+              group: 'foo',
+              type: 'success',
+              title:'success!',
+              text: 'Oh<b> Yeah!</b>',
+              duration: 2000,
+              speed: 5000,
+              width:'350px',
+              
+        })
+         }catch(err) {
+           if(err.response) {
+             alert('wrong')
+           }
+         }
+        
+      }
+    }
+  },
   computed: {
-    upperLang() {
-       return this.lang.toUpperCase()
-    },
     filter_genres() {
       let result = []
       if(this.genres) {
@@ -129,10 +174,12 @@ export default {
     }
   },
    async created() {
-    
+     console.log(`這是訪客id-->${this.$store.state.guest_session_id}`)
      this.id = this.$route.params.id
 
-     const { data: { backdrop_path, genres ,title, overview,poster_path, release_date, tagline, vote_average, videos:{results},credits: {cast}, status, original_language } } = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/movie/${this.id}?api_key=${process.env.VUE_APP_KEY}&append_to_response=videos,credits`)
+     const { data: { id,backdrop_path, genres ,title, overview,poster_path, release_date, tagline, vote_average, videos:{results},credits: {cast}, status, original_language } } = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/movie/${this.id}?api_key=${process.env.VUE_APP_KEY}&append_to_response=videos,credits`)
+     this.movieId = id
+     console.log(`這是電影id-->${this.movieId}`)
      this.backdrop = backdrop_path
      this.title = title
      this.overview = overview
@@ -184,4 +231,5 @@ $font:'Varela Round', sans-serif;
   h2,h3,.movieInfo {
     font-family:$font;
   }
+  
 </style>

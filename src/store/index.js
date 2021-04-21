@@ -11,7 +11,11 @@ const vuexLocalStorage = new VuexPersist({
 const store = new Vuex.Store({
     state: {
       lang: null,
-      isLoading:false 
+      isLoading:false,
+      token:'',
+      session_id:'',
+      guest_session_id:'',
+      showNav:false
     },
     mutations: {    
       setLang (state, value) {
@@ -19,11 +23,24 @@ const store = new Vuex.Store({
       },
       setLoading (state, value) {
         state.isLoading = value
+      },
+      setToken(state, value) {
+        state.token = value
+      },
+      setSessionId(state, value) {
+        state.session_id = value
+      },
+      setGuestId(state, value) {
+        state.guest_session_id = value
+      },
+      setNav(state, value) {
+        state.showNav = value
       }
     },
     actions: {},
     getters: {
-      isLoading: state => state.isLoading
+      isLoading: state => state.isLoading,
+      showNav: state => state.showNav
     },
     plugins: [vuexLocalStorage.plugin]
   })

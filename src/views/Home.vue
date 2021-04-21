@@ -1,7 +1,11 @@
 <template>
   <div class="w-full h-full bg-black">
     <Swiper :list = list  type='LATEST' />
-     <div v-for='(item,i) in list' :key='`${item}${i}`'>
+     <div class="container w-120 mx-auto p-16 md:w-full">
+      <MultiSlide :list=list /> 
+    </div>
+
+     <!-- <div v-for='(item,i) in list' :key='`${item}${i}`'>
        <div class="text-center">
          <router-link :to='`/details/movie/${item.id}`'>
          <img :src='`https://image.tmdb.org/t/p/w200/${item.poster_path}`' alt="">
@@ -9,16 +13,17 @@
         <h5>{{item.title}}</h5>
         <span>{{item.vote_average}}</span>
        </div>
-     </div>
+     </div> -->
 
   </div>  
 </template>
 
 <script>
+import MultiSlide from '@/components/MultiSlide'
 import Swiper from '@/components/Swiper' 
 export default {
   components: {
-    Swiper
+    Swiper,MultiSlide
   },
   data () {
     return {
@@ -26,7 +31,9 @@ export default {
       list:[],
     }
   },
-  async created(){  
+  async created(){ 
+    console.log(`這是訪客id-->${this.$store.state.guest_session_id}`)
+    
      const { data: {results} } = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/movie/popular?api_key=${process.env.VUE_APP_KEY}&language=en-US&page=1`)
      
      console.log(results)
