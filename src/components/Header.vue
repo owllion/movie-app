@@ -46,12 +46,12 @@ $neon-border:#911258;
 $neon-text:#d65f57;
 
  nav {
-   background: #000;
+   background: transparent;
    position: fixed;
    width: 100%;
    z-index: 1000;
    height: 80px;
-   padding: 1rem 0;
+   padding-top:2rem;
    margin-bottom: 100px;
  }
 .search-box {

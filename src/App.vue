@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="bg-gradient-to-r from-black to-gray-800">
     
     <Header/> 
     <Loading :active.sync="isLoading" :background-color='loadingColor' :opacity=1 >    
@@ -36,7 +36,7 @@ export default {
 
 <style>
 #app {
-  background: #000;
+  /* background: rgb(37, 36, 38); */
   font-family:'Varela Round', sans-serif;
 }
 

@@ -1,16 +1,16 @@
 
 <template>
-  <div class="wrapper overflow-hidden w-full h-screen pt-20 pb-10 md:h-full">
+  <div class="wrapper overflow-hidden w-full h-screen  pb-10 md:h-full">
    
   <swiper :options="swiperOption">  
     <swiper-slide  class="relative " v-for="item in list" :key=item.id >
       <router-link :to="`/details/movie/${item.id}`"  >  
          <div class="backdrop w-full h-full absolute top-0 left-0 z-10"></div>
 
-         <div class="absolute p-10 z-10 text-white bottom-48 left-10 md:bottom-0 md:left-0">       
-             <p>{{type}}</p>
+         <div class="absolute p-10 z-10 text-white bottom-48 left-10 md:bottom-0 md:left-0 text-xl">       
+             <p >{{type}}</p>
              <h2 class="font-bold">{{item.title}}</h2>
-             <p>{{item.vote_average}} Rating</p>
+             <p>Rating {{item.vote_average}} </p>
              <p>{{item.release_date}}</p>
          </div>
         <img class="swiper-img w-full" :src="`https://image.tmdb.org/t/p/w1280/${item.backdrop_path}`"/> 

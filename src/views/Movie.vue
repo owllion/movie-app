@@ -1,26 +1,39 @@
 <template>
   <div class="wrapper text-white">
-    
-    <section class="relative movie-img overflow-hidden w-full h-screen pt-20 pb-10 "> 
-      <div class="backdrop w-full h-full absolute top-0 left-0 z-10"></div> 
 
-    <p class="tagline text-white text-5xl absolute z-10 top-1/2 left-28 md:text-3xl md:top-64">{{tagline}}</p>
-         <div class="movieInfo absolute p-10 z-10 text-white bottom-24 left-20 md:top-96 md:left-20">       
-             <div class="title_rating">
-             <h2 class="font-base text-3xl tracking-widest ">{{title}}</h2>
-             <span class="score">{{score}}</span> 
+    <!--movie-img-->
+    <section class="relative movie-img overflow-hidden w-full h-screen pb-10"> 
+      <div class="backdrop w-full h-full absolute top-0 left-0 z-10 pointer-events-none"></div> 
+      <box-icon class="absolute right-36 top-24 cursor-pointer" name='heart' type='solid' animation='tada' color='#FF0909' size="lg"></box-icon>
+      <p class="tagline text-white text-5xl absolute z-10 top-1/2 left-28 md:text-3xl md:top-64">{{tagline}}</p>
+
+      <!--movie-info-->
+      <div class="movieInfo absolute p-10 z-10 text-white bottom-24 left-20 md:top-96 md:left-20"> 
+
+          <div class="title_rating">
+           <h2 class="font-base text-3xl tracking-widest ">{{title}}</h2>
+           <span class="score">Rating {{score}}</span> 
+             <StarRating 
+             :increment="0.5"
+             :max-rating="10"
+             inactive-color="#fff"
+             active-color="#f6bb32"
+             :star-size="10"
+              />
              </div>
 
              <p>{{status}} | {{upperLang}} </p>
              <p>{{ filter_genres }}</p>
          </div>
-     <img class="swiper-img w-full h-screen object-cover" :src="`https://image.tmdb.org/t/p/w1280/${backdrop}`"/> 
-     </section>  
-    
-    <div class="container w-120 mx-auto p-16 md:w-full">
+         <!--movie-info-->
 
+     <img class="swiper-img w-full " :src="`https://image.tmdb.org/t/p/w1280/${backdrop}`"/> 
+     </section>  
+    <!--movie-img-->
+
+    <div class="container w-120 mx-auto p-16 md:w-full">
     <!--overview-->
-    <div class="overview rounded-xl bg-gray-800 my-24 p-5">
+    <div class="overview rounded-xl bg-gradient-to-r from-green-900 my-24 p-5">
     <h3 class="tracking-widest text-3xl font-bold text-white pb-2">OVERVIEW</h3>
     <p>{{overview}}</p>
     </div>
@@ -43,12 +56,19 @@
     <!--trailer-->
    <div class="trailer mt-24">
     <h3 class="tracking-widest text-3xl font-bold pb-5 px-5">TRAILER</h3>
-
-    <div class="flex flex-wrap justify-between">
+    <!--if there are trailers-->
+    <div class="flex flex-wrap justify-between" v-if="videos.length">
     <div v-for="(video,i) in videos" :key="`${video}${i}`" class="mb-5">
      <video-embed css="embed-responsive-16by9" :src="`https://www.youtube.com/watch?v=${video.key}`"></video-embed>
     </div>
     </div>
+    <!--if there are trailers-->
+
+    <!--else-->
+    <div v-if="!videos.length" class="pl-5">
+      <p class="text-xl font-semibold text-white"> No trailers found:(</p>   
+   </div>
+   <!--else-->
 
      </div><!--trailer-->
 
@@ -63,11 +83,12 @@
 </template>
 
 <script>
+import StarRating from 'vue-star-rating'
 import scrollReveal from 'scrollreveal'
 import MultiSlide from '@/components/MultiSlide'
 export default {
   components: {
-     MultiSlide
+     MultiSlide, StarRating
    },
   data() {
     return {

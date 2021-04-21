@@ -3,10 +3,10 @@
     <swiper-slide v-for='(item,i) in list' :key='`${item}${i}`' >  
        <div class="relative">
          <router-link :to='`/details/movie/${item.id}`' class="overflow-hidden">
-         <img :src='`https://image.tmdb.org/t/p/w185/${item.poster_path}`' alt="No Image :(" class="rounded-xl w-full ">
+         <img :src='`https://image.tmdb.org/t/p/w185/${item.poster_path}`' alt="No Image :(" class="rounded-xl w-full h-64">
          </router-link>
         <h5 class="w-48 pt-5">{{item.title}}</h5>
-        <span class="tag absolute top-5 left-20 rounded-xl bg-black text-white px-3 font-bold align-middle"><box-icon name='star' type='solid' flip='horizontal' animation='spin' color='#f4ec15' class="align-middle pr-2" ></box-icon>{{item.vote_average}}</span>
+        <span class="tag absolute rounded-xl bg-black  text-white px-3 font-bold align-middle"><box-icon name='star' type='solid' flip='horizontal' animation='spin' color='#f4ec15' class="align-middle pr-2" ></box-icon>{{item.vote_average}}</span>
        </div>
     </swiper-slide>
   </swiper> 
@@ -14,7 +14,7 @@
   <swiper class="swiper" :options="swiperOption" v-else>
     <swiper-slide v-for='c in cast' :key=c.name >            
       <router-link :to="`/details/people/${c.id}`">
-      <img :src="`https://image.tmdb.org/t/p/original/${c.profile_path}`"  alt="No Image:(" class="w-full rounded-xl">
+      <img :src="`https://image.tmdb.org/t/p/original/${c.profile_path}`"  alt="No Image:(" class="w-30 rounded-xl">
       <h3 class="text-center pt-3">{{c.name}}</h3>
       </router-link>
     </swiper-slide>
@@ -35,7 +35,7 @@
       return {
         swiperOption: {
           slidesPerView: 4,
-          spaceBetween: 10,
+          spaceBetween: 75,
           slidesPerGroup: 4,
           loop: true,
           loopFillGroupWithBlank: false,
@@ -60,6 +60,9 @@ h3{
     font-family: $font;
 }
 .tag {
-   font-family: $font-else
+   font-family: $font-else;
+   background: rgba(0,0,0,.6);
+   right:5%;
+   top: 8%;
 }
 </style>
