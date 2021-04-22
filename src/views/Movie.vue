@@ -4,12 +4,12 @@
     <!--movie-img-->
     <section class="relative movie-img overflow-hidden w-full h-screen pb-10"> 
       <div class="backdrop w-full h-full absolute top-0 left-0 z-10 pointer-events-none"></div> 
-      <div class="back-icon absolute left-36 top-24 z-10">
-        <router-link to='/'>
-          <box-icon name='chevron-left' type='solid' animation='tada' flip='vertical' color='#ffffff' size='lg'></box-icon>
-        </router-link>
+
+      <div class="back-icon absolute left-36 top-24 z-10 cursor-pointer">
+        <a @click="$router.go(-1)"><box-icon name='chevron-left' type='solid' animation='tada' flip='vertical' color='#ffffff' size='lg'></box-icon>
+        </a>
       </div>
-      <!-- <box-icon class="absolute right-36 top-24 cursor-pointer" name='heart' type='solid' animation='tada' color='#FF0909' size="lg"></box-icon> -->
+
       <p class="tagline text-white text-5xl absolute z-10 top-1/2 left-28 md:text-3xl md:top-64">{{tagline}}</p>
 
       <!--movie-info-->
@@ -40,16 +40,20 @@
 
     <div class="container w-120 mx-auto p-16 md:w-full">
     <!--overview-->
-    <div class="overview rounded-xl bg-gradient-to-r from-green-900 my-24 p-5">
-    <h3 class="tracking-widest text-3xl font-bold text-white pb-2">OVERVIEW</h3>
+    <div class="overview rounded-xl bg-gradient-to-r from-green-900 my-24 p-8">
+    <h3 class="tracking-widest text-3xl font-bold text-white pb-5">OVERVIEW</h3>
     <p>{{overview}}</p>
+    <div class="imdb-link flex justify-end pt-8">
+    <a :href="`http://imdb.com/title/${imbdId}`" target="_blank" class="text-center tracking-widest rounded-xl bg-green-800 text-white p-4">View On IMDb</a>
+    </div>
+
     </div>
     <!--overview-->
 
      <!--cast-->
      <div class="cast">
        <h3 class="tracking-widest text-3xl font-bold pb-5 px-5">CAST</h3>
-       <MultiSlide :cast=filter_cast /> 
+       <MultiSlide :cast=filter_cast :movieId=movieId /> 
 <!--        
        <div class="cast" v-for='c in filter_cast' :key=c.name>
       <router-link :to="`/details/people/${c.id}`">
@@ -103,6 +107,7 @@ export default {
       rating:0,
       movieId:'',
       id:'',
+      imbdId:'',
       backdrop:'',
       title:'',
       genres:[],
@@ -177,9 +182,10 @@ export default {
      console.log(`這是訪客id-->${this.$store.state.guest_session_id}`)
      this.id = this.$route.params.id
 
-     const { data: { id,backdrop_path, genres ,title, overview,poster_path, release_date, tagline, vote_average, videos:{results},credits: {cast}, status, original_language } } = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/movie/${this.id}?api_key=${process.env.VUE_APP_KEY}&append_to_response=videos,credits`)
+     const { data: { id,imdb_id,backdrop_path, genres ,title, overview,poster_path, release_date, tagline, vote_average, videos:{results},credits: {cast}, status, original_language } } = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/movie/${this.id}?api_key=${process.env.VUE_APP_KEY}&append_to_response=videos,credits`)
      this.movieId = id
      console.log(`這是電影id-->${this.movieId}`)
+     this.imbdId = imdb_id
      this.backdrop = backdrop_path
      this.title = title
      this.overview = overview

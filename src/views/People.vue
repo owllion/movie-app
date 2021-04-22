@@ -2,6 +2,11 @@
   <div class="wrapper w-full text-white">
     <div class="px-10 py-32 container w-110 mx-auto md:w-full">
 
+     <div class="back-icon absolute left-36 top-24 z-10 cursor-pointer">
+        <a @click="$router.go(-1)"><box-icon name='chevron-left' type='solid' animation='tada' flip='vertical' color='#ffffff' size='lg'></box-icon>
+        </a>
+      </div>
+
     <div class="profile-container mb-16 gap-x-1 md:gap-x-9">
 
     <div class="left mb-5"> <!--left-->
@@ -76,6 +81,7 @@ export default {
      return {
        scrollReveal: scrollReveal(),
        id:'',
+       movieId:'',
        name:'',
        biography:'',
        birthday:'',
@@ -86,6 +92,8 @@ export default {
   },
   async created() {
      this.id = this.$route.params.id
+     this.movieId = this.$route.params.movieId
+     console.log(`這是movieid*-->${this.movieId}`)
      try {
       this.loading = true
       const { data: { 

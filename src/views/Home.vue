@@ -1,9 +1,7 @@
 <template>
   <div class="w-full h-full bg-black">
     <Swiper :list = list  type='LATEST' />
-     <div class="container w-120 mx-auto p-16 md:w-full">
-      <MultiSlide :list=list /> 
-    </div>
+     
 
      <!-- <div v-for='(item,i) in list' :key='`${item}${i}`'>
        <div class="text-center">
@@ -19,11 +17,10 @@
 </template>
 
 <script>
-import MultiSlide from '@/components/MultiSlide'
 import Swiper from '@/components/Swiper' 
 export default {
   components: {
-    Swiper,MultiSlide
+    Swiper
   },
   data () {
     return {

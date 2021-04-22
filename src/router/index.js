@@ -25,7 +25,7 @@ const routes = [
     component: () => import('../views/Detail.vue'),
     children: [
       {
-        path:'people/:id',
+        path:'people/:id/:movieId',
         component: () => import('../views/People'),
         meta: { transition: 'fade-in-up' },
       },

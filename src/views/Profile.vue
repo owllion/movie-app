@@ -48,17 +48,16 @@ export default {
     },
   },
    async created() {
-     console.log('test profikle')
      try {
-       this.loading = true
-       this.id  = this.$store.state.guest_session_id
-       console.log(this.$store.state.guest_session_id)
-        const {data: { results } } = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/guest_session/${this.id}/rated/movies?api_key=${process.env.VUE_APP_KEY}&language=en-US&sort_by=created_at.asc`)
-       this.loading = false
-         console.log('await')
+        this.loading = true
+        this.id  = this.$store.state.guest_session_id
+        console.log(this.$store.state.guest_session_id)
 
+        const {data: { results } } = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/guest_session/${this.id}/rated/movies?api_key=${process.env.VUE_APP_KEY}&language=en-US&sort_by=created_at.asc`)
+
+         this.loading = false
+         
         console.log(results)
-         console.log('wait for result')
         this.ratedMovies = results
      }catch(err) {
        this.loading = false
@@ -66,13 +65,6 @@ export default {
          alert('wrong!')
        }
      }
-       
-
-      
-      // const {data: { session_id } } = await this.$axios.post(`${process.env.VUE_APP_BASEURL}/authentication/session/new?api_key=${process.env.VUE_APP_KEY}`,this.$store.state.token)
-
-      // this.$store.commit('setSessionId', session_id)
-      // console.log(this.$store.state.session_id)
    }
 }
 </script>

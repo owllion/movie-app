@@ -30,7 +30,8 @@
     </transition>
 
     <div class="fixed top-6 right-20 z-50">
-       <box-icon name='menu' color='#ffffff' size='md' class="cursor-pointer" @click='setNav'></box-icon>
+       <box-icon name='menu' color='#ffffff' size='md' class="cursor-pointer" @click='setNav' v-show='!nav'></box-icon>
+       <box-icon name='x' color='#ffffff' size='md'  class="cursor-pointer" @click='setNav' v-show='nav'></box-icon>
      </div>
    </div>
 

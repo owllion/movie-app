@@ -13,7 +13,6 @@ const store = new Vuex.Store({
       lang: null,
       isLoading:false,
       token:'',
-      session_id:'',
       guest_session_id:'',
       showNav:false
     },
@@ -26,9 +25,6 @@ const store = new Vuex.Store({
       },
       setToken(state, value) {
         state.token = value
-      },
-      setSessionId(state, value) {
-        state.session_id = value
       },
       setGuestId(state, value) {
         state.guest_session_id = value

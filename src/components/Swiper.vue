@@ -8,10 +8,10 @@
          <div class="backdrop w-full h-full absolute top-0 left-0 z-10"></div>
 
          <div class="absolute p-10 z-10 text-white bottom-48 left-10 md:bottom-0 md:left-0 text-xl">       
-             <p >{{type}}</p>
-             <h2 class="font-bold">{{item.title}}</h2>
+             <p class="tracking-wider">{{type}}</p>
+             <h2 class="font-bold tracking-widest text-2xl">{{item.title}}</h2>
              <p>Rating {{item.vote_average}} </p>
-             <p>{{item.release_date}}</p>
+            
          </div>
         <img class="swiper-img w-full" :src="`https://image.tmdb.org/t/p/w1280/${item.backdrop_path}`"/> 
       </router-link>

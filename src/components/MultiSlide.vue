@@ -13,7 +13,7 @@
 
   <swiper class="swiper" :options="swiperOption" v-else>
     <swiper-slide v-for='c in cast' :key=c.name >            
-      <router-link :to="`/details/people/${c.id}`">
+      <router-link :to="`/details/people/${c.id}/${movieId}`">
       <img :src="`https://image.tmdb.org/t/p/original/${c.profile_path}`"  alt="No Image:(" class="w-30 rounded-xl">
       <h3 class="text-center pt-3">{{c.name}}</h3>
       </router-link>
@@ -30,7 +30,7 @@
       Swiper,
       SwiperSlide
     },
-    props:['list','cast'],
+    props:['list','cast','movieId'],
     data() {
       return {
         swiperOption: {
