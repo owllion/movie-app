@@ -1,11 +1,14 @@
 <template>
    <swiper class="swiper " :options="swiperOption" v-if='list' >
     <swiper-slide v-for='(item,i) in list' :key='`${item}${i}`' >  
-       <div class="relative text-center tracking-widest">
+       <div class="relative text-center tracking-widest md:w-full transition transform duration-700 hover:scale-105">
+
+         <div class="backdrop w-full h-full absolute top-0 left-0 z-10 pointer-events-none"></div>
+
          <router-link :to='`/details/movie/${item.id}`' class="overflow-hidden">
-         <img :src='`https://image.tmdb.org/t/p/w185/${item.poster_path}`' alt="No Image :(" class="rounded-xl w-full h-64">
+         <img :src='`https://image.tmdb.org/t/p/w185/${item.poster_path}`' alt="No Image :(" class="rounded-xl w-full ">
          </router-link>
-        <h5 class="w-48 pt-5 text-white">{{item.title}}</h5>
+        <h5 class=" pt-5 text-white text-center">{{item.title}}</h5>
         <div>
         <span class="tag absolute rounded-xl bg-black px-3 font-bold align-middle"  :class="`${getColor(item.vote_average)}`">     
           <box-icon name='star' type='solid' flip='horizontal' animation='spin' color='#f4ec15' class="align-middle pr-2" >
@@ -21,7 +24,7 @@
   <swiper class="swiper" :options="swiperOption" v-else>
     <swiper-slide v-for='c in cast' :key=c.name >            
       <router-link :to="`/details/people/${c.id}`">
-      <img :src="`https://image.tmdb.org/t/p/original/${c.profile_path}`"  alt="No Image:(" class="w-30 rounded-xl">
+      <img :src="`https://image.tmdb.org/t/p/original/${c.profile_path}`"  alt="No Image:(" class="rounded-xl">
       <h3 class="text-center pt-3">{{c.name}}</h3>
       </router-link>
     </swiper-slide>
@@ -52,15 +55,39 @@
     data() {
       return {
         swiperOption: {
-          slidesPerView: 4,
-          spaceBetween: 75,
-          slidesPerGroup: 4,
+          slidesPerView: 1,
+          spaceBetween: 10,
+          slidesPerGroup: 1,
           loop: true,
           loopFillGroupWithBlank: false,
           pagination: {
             el: '.swiper-pagination',
             clickable: true
           },
+          breakpoints: {
+            1024: {
+              slidesPerView: 6,
+              spaceBetween: 70,
+              slidesPerGroup: 6,
+            },
+            768: {
+              slidesPerView: 3,
+              spaceBetween: 20,
+              slidesPerGroup: 3,
+
+            },
+           640: {
+              slidesPerView: 3,
+              spaceBetween: 20,
+              slidesPerGroup: 3,
+
+            },
+            320: {
+              slidesPerView: 1,
+              spaceBetween: 70,
+              slidesPerGroup: 1,
+            }
+          }
          
         }
       }
@@ -71,9 +98,10 @@
 <style lang="scss" scoped>
 $font:'Eagle Lake', cursive;
 $font-else:'Varela Round', sans-serif;
- .swiper-container {
-    padding: 0 3.5rem;
+.swiper-container {   
+  //  padding: 0 3.5rem;
 }
+
 h3{
     font-family: $font;
 }
@@ -82,5 +110,8 @@ h3{
    background: rgba(0,0,0,.6);
    right:5%;
    top: 8%;
+}
+@media(max-width:769px) {
+ 
 }
 </style>

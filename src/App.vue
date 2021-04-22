@@ -43,6 +43,7 @@ export default {
 display: none;
 }
 #app {
+  height: 100%;
   font-family:'Varela Round', sans-serif;
 }
 

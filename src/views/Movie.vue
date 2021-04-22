@@ -17,7 +17,9 @@
 
           <div class="title_rating">
            <h2 class="font-base text-3xl tracking-widest ">{{title}}</h2>
-           <span class="score">Rating {{score}}</span> 
+           <span class="score">Rating 
+             <span :class="`${getColor(score)}`">{{score}}</span>
+             </span> 
              <StarRating 
              :increment="0.5"
              :max-rating="10"
@@ -31,6 +33,7 @@
 
              <p>{{status}} | <span class="uppercase">{{lang}}</span> </p>
              <p>{{ filter_genres }}</p>
+             <p>{{ release_date }}</p>
          </div>
          <!--movie-info-->
 
@@ -44,7 +47,7 @@
     <h3 class="tracking-widest text-3xl font-bold text-white pb-5">OVERVIEW</h3>
     <p class="leading-7">{{overview}}</p>
     <div class="imdb-link flex justify-end pt-8">
-    <a :href="`http://imdb.com/title/${imbdId}`" target="_blank" class="text-center tracking-widest rounded-xl bg-green-800 text-white p-4">View On IMDb</a>
+    <a :href="`http://imdb.com/title/${imbdId}`" target="_blank" class="text-center tracking-wider rounded-xl bg-green-800 text-white p-4 font-semibold duration-500 transition hover:bg-white hover:text-green-800">View On IMDb</a>
     </div>
 
     </div>
@@ -54,13 +57,6 @@
      <div class="cast">
        <h3 class="tracking-widest text-3xl font-bold pb-5 px-5">CAST</h3>
        <MultiSlide :cast=filter_cast /> 
-<!--        
-       <div class="cast" v-for='c in filter_cast' :key=c.name>
-      <router-link :to="`/details/people/${c.id}`">
-      <img :src="`https://image.tmdb.org/t/p/w185/${c.profile_path}`"  alt="">
-      <h3 >{{c.name}}</h3>
-      </router-link>
-      </div> -->
     </div> 
     <!--cast-->
 
@@ -81,13 +77,27 @@
    </div>
    <!--else-->
 
-     </div><!--trailer-->
+     </div>
+     <!--trailer-->
 
      <!--review-->
-    <div class="review">
-       
+    <div class="review-container mt-10">
+      <h3 class="tracking-widest text-3xl font-bold text-white pb-5 pl-5 uppercase">popular reviews</h3>
+      <!--one review-->
+      <div class="review rounded-xl bg-gradient-to-r from-purple-900 via-blue-900 to-black p-10 mb-10" v-for="(review,i) in reviewsList" :key='i' > 
+        <div class="author-info w-16 flex items-center mb-5">
+          <img :src="`https://image.tmdb.org/t/p/w185/${review.author_details.avatar_path}`"  class="block mr-5 w-full rounded-full" alt="avatar">
+          <h4 class="text-white tracking-wider text-md">{{review.author}}</h4>
+          </div>     
+          <p class="leading-7  text-white">{{review.content}}</p>
+          <div class="imdb-link flex justify-end pt-8">
+          <a :href="`${review.url}`" target="_blank" class="text-center tracking-wider rounded-xl bg-blue-800 text-white p-4 duration-500 transition hover:bg-white hover:text-green-800 font-semibold">See Full Article</a>
+          </div>
+        </div>
+       <!--one review-->
     </div>
-     <!--review-->
+    <!--review-containe-->
+    <!--review-->
 
     </div><!--container-->
     </div>
@@ -97,6 +107,7 @@
 import StarRating from 'vue-star-rating'
 import scrollReveal from 'scrollreveal'
 import MultiSlide from '@/components/MultiSlide'
+import { mapGetters } from 'vuex'
 export default {
   components: {
      MultiSlide, StarRating
@@ -119,10 +130,20 @@ export default {
       videos:[],
       cast:[],
       status:'',
-      lang:''
+      lang:'',
+      reviewsList:[]
     }
   },
   methods: {
+      getColor(score) {
+        if(score >= 8) {
+          return 'text-green-300'
+        }else if (score >= 6) {
+          return 'text-yellow-500'
+        }else {
+          return 'text-red-600'
+        }
+      },
     async movieRating(rating) {
       console.log('tett')
       console.log(rating)
@@ -139,18 +160,14 @@ export default {
       }else {
         try {
              await this.$axios.post(`${process.env.VUE_APP_BASEURL}/movie/${this.movieId}/rating?api_key=${process.env.VUE_APP_KEY}&guest_session_id=${this.$store.state.guest_session_id}`, { 'value':rating } )
-//           await this.$axios.post('https://api.themoviedb.org/3/movie/581387/rating?api_key=64a181c4f1c07039374331f8479761ba&guest_session_id=a56bcdf7b4a0b4004f9ae17ec86406bd', {
-//   "value": 8.5
-// })
            this.$notify({
               group: 'foo',
               type: 'success',
-              title:'success!',
+              title:'<h1>success!</h1>',
               text: 'Oh<b> Yeah!</b>',
               duration: 2000,
               speed: 5000,
-              width:'350px',
-              
+              width:'350px',          
         })
          }catch(err) {
            if(err.response) {
@@ -162,6 +179,15 @@ export default {
     }
   },
   computed: {
+     ...mapGetters(['isLoading']),
+    loading: {
+      get() {
+         return this.isLoading
+      },
+      set(value) {
+        return this.$store.commit('setLoading', value)
+      }
+    },
     filter_genres() {
       let result = []
       if(this.genres) {
@@ -179,25 +205,42 @@ export default {
     }
   },
    async created() {
-     console.log(`這是訪客id-->${this.$store.state.guest_session_id}`)
+     console.log(`guestid-->${this.$store.state.guest_session_id}
+     `)
      this.id = this.$route.params.id
 
-     const { data: { id,imdb_id,backdrop_path, genres ,title, overview,poster_path, release_date, tagline, vote_average, videos:{results},credits: {cast}, status, original_language } } = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/movie/${this.id}?api_key=${process.env.VUE_APP_KEY}&append_to_response=videos,credits`)
-     this.movieId = id
-     console.log(`這是電影id-->${this.movieId}`)
-     this.imbdId = imdb_id
-     this.backdrop = backdrop_path
-     this.title = title
-     this.overview = overview
-     this.poster = poster_path
-     this.release_date = release_date
-     this.tagline = tagline
-     this.score = vote_average
-     this.videos = results
-     this.genres = genres
-     this.cast = cast
-     this.status = status
-     this.lang = original_language
+    try {
+      this.loading = true
+      const { data: { id,imdb_id,backdrop_path, genres ,title, overview,poster_path, release_date, tagline, vote_average, videos:{results},credits: {cast}, status,reviews:{results:reviews}, original_language } } = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/movie/${this.id}?api_key=${process.env.VUE_APP_KEY}&append_to_response=videos,credits,reviews`)
+
+      this.movieId = id
+      this.imbdId = imdb_id
+      this.backdrop = backdrop_path
+      this.title = title
+      this.overview = overview
+      this.poster = poster_path
+      this.release_date = release_date
+      this.tagline = tagline
+      this.score = vote_average
+      this.videos = results
+      this.genres = genres
+      this.cast = cast
+      this.status = status
+      this.lang = original_language
+      this.reviewsList = reviews
+      this.loading = false
+    }catch(err) {
+      this.loading = false
+      if(err.response) {
+        this.$notify({
+          type:'error',
+          title:'<h1>Oops!</h1>',
+          text:'something wrong!'
+        })
+      }
+    }
+     
+     
    },
    
 mounted() {

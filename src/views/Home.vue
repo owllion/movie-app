@@ -1,30 +1,25 @@
 <template>
-  <div class="w-full h-full bg-black">
-    <Swiper :list = list  type='LATEST' />
-     
+  <div class="w-full h-full bg-gradient-to-l from-gray-900 via-black to-pink-900">
+    <Swiper :list = list  type='POPULAR' />
 
-     <!-- <div v-for='(item,i) in list' :key='`${item}${i}`'>
-       <div class="text-center">
-         <router-link :to='`/details/movie/${item.id}`'>
-         <img :src='`https://image.tmdb.org/t/p/w200/${item.poster_path}`' alt="">
-         </router-link>
-        <h5>{{item.title}}</h5>
-        <span>{{item.vote_average}}</span>
-       </div>
-     </div> -->
+    <div class="btn-container mt-36 px-10 flex flex-wrap justify-center">
+         <button class="movie-btn block w-99  mr-10 p-3 border-2 border-solid  text-center text-xl text-white tracking-widest font-semibold transition transform duration-500 hover:scale-90 md:w-full xl:mr-0 xl:mb-8">MOVIE</button>
+         <button class="tv-btn block w-99  p-3 border-2 border-solid  text-center text-xl text-white tracking-widest font-semibold transition transform duration-500 hover:scale-90 md:w-full">TV SHOWS</button>
+      </div>
+     <Movie />
 
   </div>  
 </template>
 
 <script>
 import Swiper from '@/components/Swiper' 
+import Movie from '@/components/Home-movie'
 export default {
   components: {
-    Swiper
+    Swiper,Movie
   },
   data () {
     return {
-      keywords:'',
       list:[],
     }
   },
@@ -40,6 +35,12 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-     
+  .movie-btn {
+   border-image: linear-gradient(45deg, rgb(240, 198, 121), rgb(80, 5, 21)) 1;
+}    
+ .tv-btn {
+   border-radius: 100px;
+   border-image: linear-gradient(45deg, rgb(160, 9, 122), rgb(80, 5, 21)) 1;
+}    
 
 </style>

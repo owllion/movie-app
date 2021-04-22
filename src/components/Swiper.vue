@@ -10,7 +10,7 @@
          <div class="absolute p-10 z-10 text-white bottom-48 left-10 md:bottom-0 md:left-0 text-xl">       
              <p class="tracking-wider">{{type}}</p>
              <h2 class="font-bold tracking-widest text-2xl">{{item.title}}</h2>
-             <p>Rating {{item.vote_average}} </p>
+             <p >Rating <span :class="`${getColor(item.vote_average)}`">{{item.vote_average}}</span> </p>
             
          </div>
         <img class="swiper-img w-full" :src="`https://image.tmdb.org/t/p/w1280/${item.backdrop_path}`"/> 
@@ -36,18 +36,18 @@
         const result =  this.genreList.filter(i=> {return idBatch.filter(id=> {return id.filter(nestId=> {return i.id === nestId})}) })
         console.log(result)
         return result
-      },
-      // filter_genres() {
-      //    const genreId = this.genres
-      //    const list = this.genreList 
-      //   //  console.log(genreId)
-      //   //  console.log(this.genres)
-      //   //  console.log(list)
-      //   //  const result = list.find(i=> { genreId.forEach(id=> i.id === id)})
-      //   //  return result
-      //   return 1
-      // }  
-      
+      }  
+    },
+    methods: {
+      getColor(score) {
+        if(score >= 8) {
+          return 'text-green-300'
+        }else if (score >= 6) {
+          return 'text-yellow-500'
+        }else {
+          return 'text-red-600'
+        }
+      }
     },
     props:['type','list','status','tagline','title','score','lang','backdrop','genres'],
     data() {

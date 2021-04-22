@@ -78,6 +78,18 @@ module.exports = {
             '1/2': '50%',
             '4/5':'85%'
         },
+        letterSpacing: {
+            tightest: '-.075em',
+             tighter: '-.05em',
+            tight: '-.025em',
+             normal: '0',
+            wide: '.025em',
+             wider: '.05em',
+            widest: '.1em',
+            widest: '.25em',
+            wideL:'.8rem',
+            wideLL:'1.8rem'
+           },
         backgroundImage: {
              //'hero-lg': "url('../assets/img/cart-bg.png')",
             
