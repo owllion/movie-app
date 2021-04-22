@@ -51,7 +51,11 @@ export default {
       this.nav = !this.nav
     },
     submit(keyword) {
-      this.$router.push(`/search/${keyword}`)
+    const path = `/search/${keyword}`
+   console.log(path)
+   console.log(this.$route.path)
+ if (this.$route.path !== path) this.$router.push(path)
+      // this.$router.push(`/search/${keyword}`)
     }
   },
   computed: {
