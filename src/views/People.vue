@@ -36,7 +36,7 @@
    <div class="right"> <!--right-->
      <h2 class="text-3xl mb-6">{{name}}</h2>
      <h3 class="text-xl pb-5 tracking-widest font-medium">Biography</h3>
-     <p class="tracking-wide text-justify bg-gray-800 p-8 rounded-xl">{{biography}}</p>
+     <p class="tracking-wide leading-7 text-justify bg-gray-800 p-8 rounded-xl">{{biography}}</p>
    </div><!--right-->
 
   </div><!--profile-container-->

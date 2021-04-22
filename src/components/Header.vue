@@ -8,8 +8,8 @@
     </router-link>
 
     <div class="search-box w-72">
-        <input type="text" class="bg-transparent block text-green-400 pt-1.5 " v-model='keywords' placeholder="Search">
-      <box-icon name='search-alt' animation='tada' class="search-icon cursor-pointer " color='white' ></box-icon>
+        <input type="text" class="bg-transparent block text-green-400 pt-1.5 " v-model='keywords' placeholder="Search" @keyup.enter='submit(keywords)'>
+      <box-icon name='search-alt' animation='tada' class="search-icon cursor-pointer " color='white' @click='submit(keywords)'></box-icon>
     </div>
     
     <div>
@@ -49,6 +49,9 @@ export default {
   methods: {
     setNav() {
       this.nav = !this.nav
+    },
+    submit(keyword) {
+      this.$router.push(`/search/${keyword}`)
     }
   },
   computed: {

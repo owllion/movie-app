@@ -6,14 +6,21 @@
          <img :src='`https://image.tmdb.org/t/p/w185/${item.poster_path}`' alt="No Image :(" class="rounded-xl w-full h-64">
          </router-link>
         <h5 class="w-48 pt-5 text-white">{{item.title}}</h5>
-        <span class="tag absolute rounded-xl bg-black  text-white px-3 font-bold align-middle"><box-icon name='star' type='solid' flip='horizontal' animation='spin' color='#f4ec15' class="align-middle pr-2" ></box-icon>{{item.vote_average}}</span>
+        <div>
+        <span class="tag absolute rounded-xl bg-black px-3 font-bold align-middle"  :class="`${getColor(item.vote_average)}`">     
+          <box-icon name='star' type='solid' flip='horizontal' animation='spin' color='#f4ec15' class="align-middle pr-2" >
+          </box-icon>
+       {{item.vote_average}}       
+        </span>
+        </div>
+
        </div>
     </swiper-slide>
   </swiper> 
 
   <swiper class="swiper" :options="swiperOption" v-else>
     <swiper-slide v-for='c in cast' :key=c.name >            
-      <router-link :to="`/details/people/${c.id}/${movieId}`">
+      <router-link :to="`/details/people/${c.id}`">
       <img :src="`https://image.tmdb.org/t/p/original/${c.profile_path}`"  alt="No Image:(" class="w-30 rounded-xl">
       <h3 class="text-center pt-3">{{c.name}}</h3>
       </router-link>
@@ -29,6 +36,17 @@
     components: {
       Swiper,
       SwiperSlide
+    },
+    methods: {
+      getColor(score) {
+        if(score >= 8) {
+          return 'text-green-300'
+        }else if (score >= 6) {
+          return 'text-yellow-500'
+        }else {
+          return 'text-red-600'
+        }
+      }
     },
     props:['list','cast','movieId'],
     data() {

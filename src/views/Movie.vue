@@ -42,7 +42,7 @@
     <!--overview-->
     <div class="overview rounded-xl bg-gradient-to-r from-green-900 my-24 p-8">
     <h3 class="tracking-widest text-3xl font-bold text-white pb-5">OVERVIEW</h3>
-    <p>{{overview}}</p>
+    <p class="leading-7">{{overview}}</p>
     <div class="imdb-link flex justify-end pt-8">
     <a :href="`http://imdb.com/title/${imbdId}`" target="_blank" class="text-center tracking-widest rounded-xl bg-green-800 text-white p-4">View On IMDb</a>
     </div>
@@ -53,7 +53,7 @@
      <!--cast-->
      <div class="cast">
        <h3 class="tracking-widest text-3xl font-bold pb-5 px-5">CAST</h3>
-       <MultiSlide :cast=filter_cast :movieId=movieId /> 
+       <MultiSlide :cast=filter_cast /> 
 <!--        
        <div class="cast" v-for='c in filter_cast' :key=c.name>
       <router-link :to="`/details/people/${c.id}`">

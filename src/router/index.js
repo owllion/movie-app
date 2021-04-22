@@ -10,7 +10,7 @@ const routes = [
     component: () => import('../views/Home.vue')
   },
   {
-    path: '/search/:title',
+    path: '/search/:keyword',
     name: 'Search',
     component: () => import('../views/Search.vue')
   },
@@ -25,7 +25,7 @@ const routes = [
     component: () => import('../views/Detail.vue'),
     children: [
       {
-        path:'people/:id/:movieId',
+        path:'people/:id',
         component: () => import('../views/People'),
         meta: { transition: 'fade-in-up' },
       },
@@ -33,7 +33,12 @@ const routes = [
         path:'movie/:id',
         component: () => import('../views/Movie'),
         meta: { transition: 'fade-in-left' },
-      },  
+      },
+      {
+        path:'TV/:id',
+        component: () => import('../views/TV'),
+        meta: { transition: 'fade-in-right' },
+      },    
     ]
   },
   {
