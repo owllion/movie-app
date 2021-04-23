@@ -1,8 +1,16 @@
 <template>
   <div class="wrapper w-full fixed top-0 left-0 z-20">
 
+   <div class="backdrop w-full h-full absolute top-0 left-0 z-0" ></div>
+
    <transition name="search">
-   <div class="container w-4/5  px-10 mx-auto mt-5" v-show="showSearch">
+   <div class="relative container mx-auto w-full  pl-8 pr-12 mt-5 md:w-full md:mx-0" v-show="showSearch">
+
+   <!--close-->
+   <div class="close-icon absolute top-4 right-2">
+     <box-icon name='x-circle' type='solid' color='#ffffff' class="cursor-pointer" size='md' @click="search = false"></box-icon>
+   </div>
+  <!--close-->
 
    <!--inner-->
    <div class="inner relative ">
@@ -28,13 +36,21 @@ export default {
   },
    computed: {
     ...mapGetters(['showSearch']),
+    search: {
+      get() {
+        return this.showSearch
+      },
+      set(value) {
+        return this.$store.commit('setSearch', value)
+      }
+    }
   },
   methods: {
     submit(keyword) {
     //avoid error
-    const path = `/search/${keyword}`
-    if (this.$route.path !== path) this.$router.push(path)
-  
+     const path = `/search/${keyword}`
+     if (this.$route.path !== path) this.$router.push(path)
+     this.keywords = ''
     }
   }
 }
@@ -45,6 +61,10 @@ export default {
   animation:$name;
   animation-duration: $time; 
 }
+.backdrop {
+    background-image: linear-gradient( rgba(9, 7, 7, 0.6)
+    ,rgba(4, 1, 1, 0.5));
+  }
 .search-box {
     position: relative;
     background: #000;

@@ -62,6 +62,7 @@ Vue.prototype.$moment = moment
 
 router.beforeEach((to,from,next) => {
 	store.commit('setNav', false)
+	store.commit('setSearch', false)
 	next()
 })
 

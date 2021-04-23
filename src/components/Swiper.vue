@@ -1,15 +1,18 @@
 
 <template>
-  <div class="wrapper overflow-hidden w-full h-screen  pb-10 md:h-full">
+  <div class="wrapper overflow-hidden w-full h-screen  pb-10 xl:h-auto">
    
   <swiper :options="swiperOption">  
     <swiper-slide  class="relative " v-for="item in list" :key=item.id >
-      <router-link :to="`/details/movie/${item.id}`"  >  
+      <router-link :to="`/details/${link}/${item.id}`"  >  
          <div class="backdrop w-full h-full absolute top-0 left-0 z-10"></div>
 
          <div class="absolute p-10 z-10 text-white bottom-48 left-10 md:bottom-0 md:left-0 text-xl">       
              <p class="tracking-wider">{{type}}</p>
-             <h2 class="font-bold tracking-widest text-2xl">{{item.title}}</h2>
+
+             <h2 class="font-bold tracking-widest text-2xl" v-if='item.title'>{{item.title}}</h2>
+             <h2 class="font-bold tracking-widest text-2xl" v-if='item.name'>{{item.name}}</h2>
+
              <p >Rating <span :class="`${getColor(item.vote_average)}`">{{item.vote_average}}</span> </p>
             
          </div>
@@ -49,7 +52,7 @@
         }
       }
     },
-    props:['type','list','status','tagline','title','score','lang','backdrop','genres'],
+    props:['type','list','status','tagline','title','score','lang','backdrop','genres','link'],
     data() {
       return {
             genreList:[],
@@ -66,6 +69,7 @@
         const {data: { genres } } = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/genre/movie/list?api_key=${process.env.VUE_APP_KEY}&language=en-US`)
 
         this.genreList = genres
+        console.log(this.link)
     }
   }
 </script>

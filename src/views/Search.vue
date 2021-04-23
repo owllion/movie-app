@@ -1,9 +1,9 @@
 <template>
   <div class="wrapper w-full py-20 text-white">
-    <section class="search-results p-20">
+    <section class="search-results p-20 sm:p-5">
     
     <div class="movie">
-     <h3 class="title text-3xl tracking-widest text-white p-5 m-5 md:m-0 md:mb-8 ">Movie And TV</h3>
+     <h3 class="title text-3xl tracking-widest text-white p-5 m-5 md:m-0 md:mb-8 sm:text-xl">Movie And TV</h3>
 
      <!--if 404 movieAndTv-->
      <div v-if='!movieAndTvResult.length '>
@@ -13,9 +13,9 @@
 
     <!--if movieAndTvResult-->  
      <div v-if='movieAndTvResult.length' class="flex flex-wrap justify-center">
-       <div v-for='(result,i) in movieAndTvResult' :key="i"  class="w-44 text-center m-5 md:w-full">
+       <div v-for='(result,i) in movieAndTvResult' :key="i"  class="w-44 text-center m-5 md:w-full ">
          <router-link :to='`/details/movie/${result.id}`' class="overflow-hidden">
-         <img :src='`https://image.tmdb.org/t/p/w185/${result.poster_path}`' alt="No Image :(" class="rounded-xl w-full">
+         <img :src='`https://image.tmdb.org/t/p/w185/${result.poster_path}`' alt="No Image :(" class="rounded-xl w-full transition duration-500 transform hover:scale-105">
          </router-link>
         <h5 class="text-center pt-2 font-bold tracking-widest">{{result.title}}</h5>
         <span class="tag text-white px-3 font-bold align-middle">
@@ -29,7 +29,7 @@
      
      <!--people-->
      <div class="people">
-     <h3 class="title text-3xl tracking-widest text-white p-5 m-5 md:m-0 md:mb-8 ">People</h3>
+     <h3 class="title text-3xl tracking-widest text-white p-5 m-5 md:m-0 md:mb-8 sm:text-xl">People</h3>
      <!--if 404 people -->
      <div v-if='!peopleResult.length'>
        <p class="text-white font-semibold text-3xl pl-5 md:text-2xl">
@@ -42,10 +42,10 @@
 
     <!--if peopleResult.length-->
     <div v-if='peopleResult.length' class="flex flex-wrap justify-center">
-    <div v-for='c in peopleResult' :key=c.name class="w-44 text-center m-5 md:w-full">            
+    <div v-for='c in peopleResult' :key=c.name class="w-44 text-center m-5 md:w-full ">            
       <router-link :to="`/details/people/${c.id}`">
-      <img :src="`https://image.tmdb.org/t/p/original/${c.profile_path}`"  alt="No Image:(" class="rounded-xl">
-      <h3 class="text-center pt-3">{{c.name}}</h3>
+      <img :src="`https://image.tmdb.org/t/p/original/${c.profile_path}`"  alt="No Image:(" class="rounded-xl transition duration-500 transform hover:scale-105">
+      <h3 class="text-center pt-3 ">{{c.name}}</h3>
       </router-link>
     </div>
     </div>

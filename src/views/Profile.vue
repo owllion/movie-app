@@ -1,10 +1,10 @@
 <template>
   <div class="wrapper w-full py-20 bg-gradient-to-b from-black via-gray-700 to-blue-900">
     <section class="rated-movie p-20">
-
+     <h3 class="text-3xl tracking-widest text-white p-5 m-5 md:m-0 md:pb-5">Rated Movies</h3>
     <!--if ratedMovies.length-->
      <div v-if='ratedMovies.length' >
-       <h3 class="text-3xl tracking-widest text-white p-5 m-5 md:m-0 md:pb-5">Rated Movies</h3>
+      
 
     <!--inner-container-->
     <div class="inner-container flex flex-wrap justify-center ">
@@ -12,7 +12,7 @@
       <!--v-for-->
        <div v-for='(movie,i) in ratedMovies' :key="i"  class="w-44 text-center m-5 md:w-full">
          <router-link :to='`/details/movie/${movie.id}`' class="overflow-hidden">
-         <img :src='`https://image.tmdb.org/t/p/w185/${movie.poster_path}`' alt="No Image :(" class="rounded-xl w-full">
+         <img :src='`https://image.tmdb.org/t/p/w185/${movie.poster_path}`' alt="No Image :(" class="rounded-xl w-full transition duration-500 transform hover:scale-105">
          </router-link>
         <h5 class="text-center pt-2 tracking-widest text-white">{{movie.title}}</h5>
         <span class="tag text-white px-3 font-bold align-middle">
@@ -28,7 +28,7 @@
 
      <!--if !ratedMovies.length-->
      <div v-if='!ratedMovies.length'>
-       <p class="text-white font-semibold text-3xl">You have not rated any movies!</p>
+       <p class="text-white font-semibold text-3xl pl-5 mt-6">You have not rated any movies!</p>
      </div>
      <!--if !ratedMovies.length-->
 

@@ -10,7 +10,7 @@
       <div v-show='nav' class="aside bg-black w-72 h-full fixed top-0 bottom-0 flex-col z-50 md:w-full">
 
         <!-- close icon -->
-        <div class="flex justify-end p-5">
+        <div class="flex justify-end p-5 md:pr-10">
           <box-icon name='x' color='#ffffff' class="cursor-pointer" size='md' @click="setNav"></box-icon>
         </div>
         <!-- close icon -->

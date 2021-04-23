@@ -9,7 +9,7 @@
       :animation-duration="700" :size="80" color="#c38022"
       />
     </Loading>
-    <notifications group="foo"/>   
+    <notifications group="alert"/>   
     <vue-page-transition name="fade-in-right">
     <router-view/>
     </vue-page-transition>
@@ -49,7 +49,6 @@ export default {
 display: none;
 }
 #app {
-  height: 100%;
   font-family:'Varela Round', sans-serif;
 }
 

@@ -35,9 +35,16 @@ const routes = [
         meta: { transition: 'fade-in-left' },
       },
       {
-        path:'TV/:id',
+        path:'tv/:id',
         component: () => import('../views/TV'),
         meta: { transition: 'fade-in-right' },
+        children:[
+          {
+            path:'episode/:epid',
+            component: () => import('../views/Episode'),
+            meta: { transition: 'fade-in-left' },
+          }
+        ]
       },    
     ]
   },
