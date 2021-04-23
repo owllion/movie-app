@@ -5,16 +5,24 @@
     <section class="relative movie-img overflow-hidden w-full h-screen pb-10"> 
       <div class="backdrop w-full h-full absolute top-0 left-0 z-10 pointer-events-none"></div> 
 
-      <div class="back-icon absolute left-36 top-24 z-10 cursor-pointer">
-        <a @click="$router.go(-1)"><box-icon name='chevron-left' type='solid' animation='tada' flip='vertical' color='#ffffff' size='lg'></box-icon>
+     <!--back icon-->
+      <div class="back-icon absolute left-28 top-36 z-10 cursor-pointer">
+        <a @click="$router.go(-1)"><box-icon name='chevron-left' type='solid' flip='vertical' color='#ffffff' size='lg'></box-icon>
         </a>
       </div>
+      <!--back icon-->
 
       <p class="tagline text-white text-5xl absolute z-10 top-1/2 left-28 md:text-3xl md:top-64">{{tagline}}</p>
 
       <!--movie-info-->
-      <div class="movieInfo absolute p-10 z-10 text-white bottom-24 left-20 md:top-96 md:left-20"> 
-
+      <div class="movieInfo absolute p-10 z-10 text-white bottom-10 left-20 md:top-96 md:left-20 flex items-center"> 
+       <!--left-->
+          <div class="right mr-10 ">
+            <img :src="`https://image.tmdb.org/t/p/w185/${poster}`" alt="poster" class="w-full h-full object-cover rounded-xl">
+          </div>
+        <!--left-->
+        <!--right-->
+         <div class="left">
           <div class="title_rating">
            <h2 class="font-base text-3xl tracking-widest ">{{title}}</h2>
            <span class="score">Rating 
@@ -34,6 +42,8 @@
              <p>{{status}} | <span class="uppercase">{{lang}}</span> </p>
              <p>{{ filter_genres }}</p>
              <p>{{ release_date }}</p>
+             </div>
+             <!--right-->      
          </div>
          <!--movie-info-->
 
@@ -73,7 +83,7 @@
 
     <!--else-->
     <div v-if="!videos.length" class="pl-5">
-      <p class="text-xl font-semibold text-white"> No trailers found:(</p>   
+      <p class="text-2xl md:text-md text-white "> No trailers found.</p>   
    </div>
    <!--else-->
 
@@ -83,7 +93,11 @@
      <!--review-->
     <div class="review-container mt-10">
       <h3 class="tracking-widest text-3xl font-bold text-white pb-5 pl-5 uppercase">popular reviews</h3>
+
+      <div class="text-2xl md:text-md text-white pl-6" v-if='!reviewsList.length'>No reviews found.</div>
+
       <!--one review-->
+      <div v-if='reviewsList.length'> 
       <div class="review rounded-xl bg-gradient-to-r from-purple-900 via-blue-900 to-black p-10 mb-10" v-for="(review,i) in reviewsList" :key='i' > 
         <div class="author-info w-16 flex items-center mb-5">
           <img :src="`https://image.tmdb.org/t/p/w185/${review.author_details.avatar_path}`"  class="block mr-5 w-full rounded-full" alt="avatar">
@@ -94,6 +108,7 @@
           <a :href="`${review.url}`" target="_blank" class="text-center tracking-wider rounded-xl bg-blue-800 text-white p-4 duration-500 transition hover:bg-white hover:text-green-800 font-semibold">See Full Article</a>
           </div>
         </div>
+       </div>
        <!--one review-->
     </div>
     <!--review-containe-->
@@ -263,6 +278,47 @@ mounted() {
     opacity: 0,
     easing: 'linear',
     scale: 2.5,
+   });
+   this.scrollReveal.reveal('.review-container', {   
+    duration: 1000, 
+    origin: 'right',
+    delay:200,   
+    reset: true,
+    mobile: true,  
+    distance: '100px',
+    opacity: 0,
+    easing: 'linear',
+   });
+   this.scrollReveal.reveal('.overview', {   
+    duration: 1000, 
+    origin: 'left',   
+    reset: true,
+    mobile: true,  
+    distance: '30%',
+    opacity: 0,
+    easing: 'linear',
+    
+   });
+   this.scrollReveal.reveal('.cast', {   
+    duration: 1000, 
+    origin: 'left',
+    delay:200,   
+    reset: true,
+    mobile: true,  
+    distance: '30%',
+    opacity: 0,
+    easing: 'linear',
+   });
+   this.scrollReveal.reveal('.trailer', {   
+    duration: 1000, 
+    origin: 'left',
+    delay:200,   
+    reset: true,
+    mobile: true,  
+    distance: '30%',
+    opacity: 0,
+    easing: 'linear',
+    
    });
   }
 }

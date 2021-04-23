@@ -58,17 +58,7 @@
                     el:'.swiper-pagination',
                     clickable:true
                 },
-                loop:true,    
-                autoplay:{      
-                    delay:1500,
-                    disableOnInteraction:false
-                },
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev'
-          },
-                
-                speed:1500    
+                loop:true,                              
             }
         }
     },
@@ -76,7 +66,6 @@
         const {data: { genres } } = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/genre/movie/list?api_key=${process.env.VUE_APP_KEY}&language=en-US`)
 
         this.genreList = genres
-        console.log(this.genreList)
     }
   }
 </script>

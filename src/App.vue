@@ -2,6 +2,8 @@
   <div id="app" class="bg-gradient-to-r from-black to-gray-800" v-cloak>
     
     <Header/> 
+    <SideNav/>
+    <SearchBox/>
     <Loading :active.sync="isLoading" :background-color='loadingColor' :opacity=1 >    
       <BreedingRhombusSpinner
       :animation-duration="700" :size="80" color="#c38022"
@@ -18,13 +20,17 @@
 import { BreedingRhombusSpinner } from 'epic-spinners'
 import { mapGetters } from 'vuex'
 import Header from '@/components/Header'
+import SideNav from '@/components/SideNav'
+import SearchBox from '@/components/SearchBox'
 export default {
    components: {
      Header,
-     BreedingRhombusSpinner
+     BreedingRhombusSpinner,
+     SideNav,
+     SearchBox
    },
     computed: {
-    ...mapGetters(['isLoading']),
+    ...mapGetters(['isLoading',]),
     
   },
   data() {

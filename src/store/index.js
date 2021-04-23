@@ -14,7 +14,8 @@ const store = new Vuex.Store({
       isLoading:false,
       token:'',
       guest_session_id:'',
-      showNav:false
+      showNav:false,
+      showSearch:false
     },
     mutations: {    
       setLang (state, value) {
@@ -31,12 +32,16 @@ const store = new Vuex.Store({
       },
       setNav(state, value) {
         state.showNav = value
+      },
+      setSearch(state, value) {
+        state.showSearch = value
       }
     },
     actions: {},
     getters: {
       isLoading: state => state.isLoading,
-      showNav: state => state.showNav
+      showNav: state => state.showNav,
+      showSearch: state => state.showSearch
     },
     plugins: [vuexLocalStorage.plugin]
   })

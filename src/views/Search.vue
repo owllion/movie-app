@@ -136,8 +136,8 @@ export default {
 mounted() {
    this.scrollReveal.reveal('.title', {   
         duration: 1000,   
-        origin: 'right',   
-        reset: true,
+        origin: 'top',   
+        reset: false,
         mobile: true,  
         distance: '100px',
         opacity: 0.001,

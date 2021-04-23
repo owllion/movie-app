@@ -52,22 +52,21 @@ Vue.use(VueToast, {
 Vue.use(VueMeta)
 Vue.use(Vuelidate);
 Vue.use(VueAxios, axios);
-Vue.use(Loading, {
-	canCancel: false,
-	width: 100,
-	height: 100,
-	backgroundColor: '#000000',
-	isFullPage: true,
-	opacity: 1,
-	blur:'10px',
-	color:'red'
-});
 
 Vue.component('Loading', Loading);
 
 Vue.config.productionTip = false;
 Vue.prototype.$axios = axios;
 Vue.prototype.$moment = moment
+
+
+router.beforeEach((to,from,next) => {
+	store.commit('setNav', false)
+	next()
+})
+
+
+
 
 new Vue({
 	router,

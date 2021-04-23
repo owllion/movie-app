@@ -14,7 +14,7 @@
          <router-link :to='`/details/movie/${movie.id}`' class="overflow-hidden">
          <img :src='`https://image.tmdb.org/t/p/w185/${movie.poster_path}`' alt="No Image :(" class="rounded-xl w-full">
          </router-link>
-        <h5 class="text-center pt-2 font-bold tracking-widest text-white">{{movie.title}}</h5>
+        <h5 class="text-center pt-2 tracking-widest text-white">{{movie.title}}</h5>
         <span class="tag text-white px-3 font-bold align-middle">
           <box-icon name='star' type='solid' flip='horizontal' animation='spin' color='#f4ec15' class="align-middle pr-2" ></box-icon>{{movie.vote_average}}
         </span>

@@ -3,10 +3,11 @@
     <swiper-slide v-for='(item,i) in list' :key='`${item}${i}`' >  
        <div class="relative text-center tracking-widest md:w-full transition transform duration-700 hover:scale-105">
 
-         <div class="backdrop w-full h-full absolute top-0 left-0 z-10 pointer-events-none"></div>
+         
 
-         <router-link :to='`/details/movie/${item.id}`' class="overflow-hidden">
+         <router-link :to='`/details/movie/${item.id}`' class="overflow-hidden relative block">
          <img :src='`https://image.tmdb.org/t/p/w185/${item.poster_path}`' alt="No Image :(" class="rounded-xl w-full ">
+         <div class="backdrop w-full h-full absolute top-0 left-0 z-10 pointer-events-none"></div>
          </router-link>
         <h5 class=" pt-5 text-white text-center">{{item.title}}</h5>
         <div>
@@ -111,7 +112,17 @@ h3{
    right:5%;
    top: 8%;
 }
-@media(max-width:769px) {
- 
-}
+.backdrop {
+    background-image: linear-gradient( rgba(0, 0, 0, 0.6)
+    ,rgba(0,0,0,.5));
+  }
+ a {
+    
+   &:hover {
+      .backdrop {
+        background-image:none;
+      }
+   }
+ }
+
 </style>

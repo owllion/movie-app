@@ -1,6 +1,6 @@
 <template>
-  <div class="text-white">
-    <transition name="slide-side">
+  <div class="wrapper">
+    <!-- <transition name="slide-side">
     <nav class="fixed w-full z-20 h-20 py-2 px-0 transition duration-700 transform flex justify-evenly items-center bg-black " v-show='nav'>
 
     <router-link to='/'>
@@ -27,14 +27,25 @@
       </ul>   
     </div>
     </nav>
-    </transition>
-
-    <div class="fixed top-6 right-20 z-50">
-       <box-icon name='menu' color='#ffffff' size='md' class="cursor-pointer" @click='setNav' v-show='!nav'></box-icon>
-       <box-icon name='x' color='#ffffff' size='md'  class="cursor-pointer" @click='setNav' v-show='nav'></box-icon>
+    </transition> -->
+    <nav >
+   <!--menu-->
+   <!-- -->
+    <div class="fixed top-10 left-20 z-50">
+       <box-icon name='menu' color='#ffffff' size='md' class="cursor-pointer" @click='setNav' v-show='!nav'></box-icon>     
      </div>
-   </div>
+    <!--menu-->
 
+    <!--search-->
+      <div class="fixed top-10 right-20 z-50">
+        <box-icon name='search-alt' animation='tada' class="search-icon cursor-pointer "  size='md'  color='white' @click='setSearch'></box-icon>    
+     </div>
+     <!--search-->
+   </nav>
+
+
+
+   </div>
 </template>
 
 <script>
@@ -42,24 +53,19 @@ import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      keywords:'',
-      
+      keywords:''  
     }
   },
   methods: {
     setNav() {
       this.nav = !this.nav
     },
-    submit(keyword) {
-    const path = `/search/${keyword}`
-   console.log(path)
-   console.log(this.$route.path)
- if (this.$route.path !== path) this.$router.push(path)
-      // this.$router.push(`/search/${keyword}`)
+    setSearch() {
+      this.search = !this.search
     }
   },
   computed: {
-    ...mapGetters(['showNav']),
+    ...mapGetters(['showNav','showSearch']),
     nav: {
       get(){
         return this.showNav
@@ -67,15 +73,20 @@ export default {
       set(value) {
         return this.$store.commit('setNav', value)
       }
+    },
+    search: {
+      get() {
+        return this.showSearch
+      },
+      set(value) {
+        return this.$store.commit('setSearch', value)
+      }
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-$neon-border:#911258;
-$neon-text:#d65f57;
-
 .slide-side-enter-active,
 .slide-side-leave-active {
   transition: all 0.3s ease-out;
@@ -84,57 +95,4 @@ $neon-text:#d65f57;
 .slide-side-leave-to {
   opacity: 0;
 }
-.search-box {
-    position: relative;
-    background: #000;
-    border:1px solid rgb(77, 76, 76);
-    height: 45px;
-    border-radius: 40px;
-    padding: 8px;            
-    input {
-        padding-left: 36px;
-        outline: none;
-        font-size: .6rem;      
-      }
-    .search-icon {
-        position: absolute;
-        top: 12px;
-        left: 16px;
-      }
-  }  
-
-h1 {
-  font-size: .9rem;
-  font-family: 'Eagle Lake', cursive;
-  padding: 10px;
-  color: #fff;
-  border: 2px solid #fff;
-  border-radius: 10px;
-  
-  animation: flicker 1.5s infinite alternate;     
-}
-
-@keyframes flicker { 
-    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {  
-       
-         text-shadow:
-          -1px -1px 5px $neon-text,  
-           1px -1px 5px $neon-text,
-           -1px 1px 5px $neon-text,
-            1px 1px 5px $neon-text;
-
-         box-shadow:
-            0 0 .5rem $neon-border,
-            inset 0 0 .7rem $neon-border,
-            0 0 2rem $neon-border,
-            inset 0 0 2rem $neon-border,
-            0 0 4rem $neon-border,
-            inset 0 0 4rem $neon-border;        
-    }
-    
-    20%, 24%, 55% {        
-       text-shadow: none;
-        box-shadow: none;
-    }    
-}  
 </style>
