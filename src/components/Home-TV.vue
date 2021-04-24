@@ -4,16 +4,16 @@
   <div class="container w-120 mx-auto p-16 md:w-full">
     <div class="upcoming mb-8">
       <h3 class="tracking-widest p-3 mb-5 text-3xl font-semibold  text-white md:text-sm md:text-center">AIRING TODAY</h3>
-            <MultiSlide :list=airingTodayList /> 
+            <MultiSlide :list=airingTodayList link='tv' /> 
     </div>
 
      <div class="nowplaying mb-8">
        <h3 class="tracking-widest p-3 mb-5 text-3xl font-semibold text-white md:text-sm md:text-center">ON THE AIR</h3>
-            <MultiSlide :list=onAirList /> 
+            <MultiSlide :list=onAirList link='tv' /> 
     </div>
      <div class="toprated">
        <h3 class="tracking-widest p-3 mb-5 text-3xl font-semibold text-white md:text-sm md:text-center">TOP RATED</h3>
-            <MultiSlide :list=topRatedList /> 
+            <MultiSlide :list=topRatedList link='tv' /> 
     </div>
 
   </div>

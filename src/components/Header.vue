@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-   <nav  ref='navbar' class='fixed w-full  h-20 p-7 top-0 left-0 z-20 flex justify-between' >
+   <nav  ref='navbar' class='fixed w-full  h-20 p-7 top-0 left-0 z-20 flex justify-between items-center duration-700 transition' >
 
    <!--menu-->
 

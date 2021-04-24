@@ -16,7 +16,7 @@
              <p >Rating <span :class="`${getColor(item.vote_average)}`">{{item.vote_average}}</span> </p>
             
          </div>
-        <img class="swiper-img w-full" :src="`https://image.tmdb.org/t/p/w1280/${item.backdrop_path}`"/> 
+        <img class="swiper-img w-full" :src="`https://image.tmdb.org/t/p/w1280/${item.backdrop_path}`" alt='No backdrop.' /> 
       </router-link>
      </swiper-slide> 
     </swiper>

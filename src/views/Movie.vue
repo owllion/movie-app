@@ -110,7 +110,7 @@
      <!--cast-->
      <div class="cast">
        <h3 class="tracking-widest text-3xl font-bold pb-5 px-5 md:text-xl">CAST</h3>
-       <MultiSlide :cast=filter_cast /> 
+       <MultiSlide :cast=filter_cast link='movie' /> 
     </div> 
     <!--cast-->
 

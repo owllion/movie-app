@@ -103,7 +103,7 @@
     
     <div class="season">  
       <h3 class="tracking-widest text-3xl font-bold text-white pb-5 md:text-xl">SEASON</h3>
-     <MultiSlide :list=seasonList />
+     <SeasonSwiper :list=seasonList :tvId='id' />
      </div>
     <!-- season -->
 
@@ -111,17 +111,13 @@
     <div class="overview rounded-xl bg-gradient-to-r from-green-900 my-24 p-8 md:my-9">
     <h3 class="tracking-widest text-3xl font-bold text-white pb-5 md:text-xl">OVERVIEW</h3>
     <p class="leading-7">{{overview}}</p>
-    <div class="imdb-link flex justify-end pt-8">
-    <a :href="`http://imdb.com/title/${imbdId}`" target="_blank" class="text-center tracking-wider rounded-xl bg-green-800 text-white p-4 font-semibold duration-500 transition hover:bg-white hover:text-green-800">View On IMDb</a>
-    </div>
-
     </div>
     <!--overview-->
 
      <!--cast-->
      <div class="cast">
        <h3 class="tracking-widest text-3xl font-bold pb-5 px-5 md:text-xl">CAST</h3>
-       <MultiSlide :cast=filter_cast /> 
+       <MultiSlide :cast=filter_cast link='tv' /> 
     </div> 
     <!--cast-->
 
@@ -177,16 +173,16 @@
 import StarRating from 'vue-star-rating'
 import scrollReveal from 'scrollreveal'
 import MultiSlide from '@/components/MultiSlide'
+import SeasonSwiper from '@/components/Season-swiper'
 import { mapGetters } from 'vuex'
 export default {
   components: {
-     MultiSlide, StarRating
+     MultiSlide, StarRating,SeasonSwiper
    },
   data() {
     return {
       scrollReveal: scrollReveal(),
       rating:0,
-      tvId:'',
       id:'',
       episode_count:'',
       seasons:'',     
@@ -290,9 +286,8 @@ export default {
 
     try {
       this.loading = true
-      const { data: { backdrop_path ,first_air_date, genres , id, name,  original_language, number_of_episodes, number_of_seasons, overview, poster_path, seasons,status, tagline, vote_average, videos:{results},credits: {cast}, reviews:{results:reviews} } } = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/tv/${this.id}?api_key=${process.env.VUE_APP_KEY}&append_to_response=videos,credits,reviews`)
+      const { data: { backdrop_path ,first_air_date, genres ,  name,  original_language, number_of_episodes, number_of_seasons, overview, poster_path, seasons,status, tagline, vote_average, videos:{results},credits: {cast}, reviews:{results:reviews} } } = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/tv/${this.id}?api_key=${process.env.VUE_APP_KEY}&append_to_response=videos,credits,reviews`)
 
-      this.tvId = id
       this.backdrop = backdrop_path
       this.title = name
       this.overview = overview

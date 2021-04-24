@@ -19,40 +19,47 @@
     <div class="mt-5">  <!--info-->
     <h3 class="tracking-widest text-2xl font-semibold mb-5">Personal Info</h3>
 
-    <div>
+    <div class="known-for">
      <h3 class="tracking-widest text-xl font-medium"><box-icon name='happy-alt' type='solid' color='white' class="align-text-bottom mr-1.5"></box-icon>Known For</h3>
      <p>{{known_for}}</p>
     </div> 
 
-    <div class="mt-5">
+    <div class="birth mt-5">
     <h3 class="tracking-widest text-xl font-medium mb-2"><box-icon name='cake' type='solid' flip='horizontal' color='white' class="align-text-bottom mr-1.5"></box-icon>Birthday</h3>
       <p class="inline-block">{{birthday}}</p>
       <p class="inline-block">( {{$moment().diff(birthday, 'years')}} years old )</p>
     </div>   
-
+    <div class="link py-10">
+      <a :href="`http://imdb.com/name/${imbd}`" target="_blank" class="text-center tracking-wider rounded-xl bg-red-700 text-white p-4 font-semibold duration-500 transition hover:bg-white hover:text-red-700">View On IMDb</a>
+    </div>
    </div> <!--info--> 
-   </div><!--left-->
+   </div>
+   <!--left-->
 
-   <div class="right"> <!--right-->
+   <!--right-->
+   <div class="right"> 
      <h2 class="text-3xl mb-6">{{name}}</h2>
      <h3 class="text-xl pb-5 tracking-widest font-medium">Biography</h3>
      <p class="tracking-wide leading-7 text-justify bg-gray-800 p-8 rounded-xl">{{biography}}</p>
-   </div><!--right-->
+   </div>
+   <!--right-->
+  </div>
+  <!--profile-container-->
 
-  </div><!--profile-container-->
+  <!--credits-->
+   <div>
+     <div class="movie mb-16">
+      <h3 class="tracking-widest text-3xl font-bold pb-5">Movie Credits</h3>
+     <MultiSlide :list=movieCredit link='movie' />
+     </div>
 
-   <div><!--known for-->
-   <h3  class="tracking-widest text-3xl font-bold pb-5 ">Credits</h3>
-  <MultiSlide :list=cast /> 
-     <!-- <div v-for='(item,i) in cast' :key='`${item}${i}`'>
-         <router-link  :to='`/details/movie/${item.id}`' class="h-36" >
-       
-         <img :src='`https://image.tmdb.org/t/p/w200/${item.poster_path}`' alt="No Image :(" class="rounded-xl relative h-full">
-         </router-link>
-        <h5 class="w-48 pt-5">{{item.title}}</h5>
-        <span class="absolute top-5 right-5">{{item.vote_average}}</span>
-        </div> -->
-   </div><!--known for-->
+     <div class="tv">
+      <h3 class="tracking-widest text-3xl font-bold pb-5">TV Credits</h3> 
+     <MultiSlide :list=TvCredit link='tv' /> 
+   </div>
+
+   </div>
+   <!--credits-->
 
   </div>
   </div>
@@ -76,17 +83,36 @@ export default {
         return this.$store.commit('setLoading', value)
       }
     },
+    movieCredit() {
+      let list = []
+      this.creditList.forEach(i=> {
+        if(i.media_type === 'movie') {
+          list.push(i)
+        }
+      })
+      return list
+    },
+    TvCredit() {
+      let list = []
+      this.creditList.forEach(i=> {
+        if(i.media_type === 'tv') {
+          list.push(i)
+        }
+      })
+      return list
+    }
   },
   data() {
      return {
        scrollReveal: scrollReveal(),
        id:'',
+       imbd:'',
        movieId:'',
        name:'',
        biography:'',
        birthday:'',
        profile_img:'',
-       cast:[],
+       creditList:[],
        known_for:''
      }
   },
@@ -100,18 +126,19 @@ export default {
        name,
        biography,
        birthday,
-       credits:{ cast },
+       combined_credits:{ cast },
        known_for_department,
-       images:{ profiles }
-       }} = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/person/${this.id}?api_key=${process.env.VUE_APP_KEY}&append_to_response=credits,images`)
+       images:{ profiles },
+       imdb_id
+       }} = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/person/${this.id}?api_key=${process.env.VUE_APP_KEY}&append_to_response=combined_credits,images`)
      
       this.name = name
       this.biography = biography
       this.birthday = birthday
       this.profile_img = profiles[0].file_path
-      this.cast = cast 
+      this.creditList = cast 
       this.known_for = known_for_department
-
+      this.imbd = imdb_id
       this.loading = false
      }catch(err) {
        if(err.response) {
