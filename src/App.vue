@@ -40,6 +40,7 @@ export default {
   },
   created() {
     this.$store.commit('setLoading',false)
+    this.$store.commit('setGuestId', '')
   }
 }
 </script>

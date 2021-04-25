@@ -2,8 +2,8 @@
   <div class="wrapper w-full text-white">
     <div class="px-10 py-32 container w-110 mx-auto md:w-full">
 
-     <div class="back-icon absolute left-36 top-24 z-10 cursor-pointer">
-        <a @click="$router.go(-1)"><box-icon name='chevron-left' type='solid' animation='tada' flip='vertical' color='#ffffff' size='lg'></box-icon>
+     <div class="back-icon  cursor-pointer sm:hidden">
+        <a @click="$router.go(-1)"><box-icon name='chevron-left' type='solid' flip='vertical' color='#ffffff' size='lg'></box-icon>
         </a>
       </div>
 
@@ -186,6 +186,11 @@ $font-h2:'Eagle Lake', cursive;
  h2 {
     font-family: $font-h2;
  }
-
+ .back-icon {
+    position: absolute;
+    top: 15%;
+    z-index: 10;
+    left: 8%;
+  }
 
 </style>

@@ -1,101 +1,9 @@
 <template>
   <div class="wrapper text-white">
-
-    <!--movie-img-->
-    <section class="relative movie-img overflow-hidden w-full h-screen pb-10 md:h-auto md:pb-0"> 
-      <div class="backdrop w-full h-full absolute top-0 left-0 z-10 pointer-events-none"></div> 
-
-     <!--back icon-->
-      <div class="back-icon absolute left-28 top-36 z-10 cursor-pointer md:hidden">
-        <a @click="$router.go(-1)"><box-icon name='chevron-left' type='solid' flip='vertical' color='#ffffff' size='lg'></box-icon>
-        </a>
-      </div>
-      <!--back icon-->
-      
-   <div  class="relative">
-     <img class="swiper-img w-full h-full object-cover md:w-full " :src="`https://image.tmdb.org/t/p/w1280/${backdrop}`"/> 
-
-      <p class="tagline text-white text-5xl absolute z-10 top-80 left-28 md:text-xl md:top-24 md:left-24 xs:text-lg xs:top-1/2 xs:left-10">{{tagline}}</p> 
-
-      <!--movie-info-->
-      <div class="movieInfo sm:hidden absolute p-10 z-10 text-white bottom-48 left-20 md:top-48 md:left-10 flex items-center"> 
-       <!--left-->
-          <div class="left mr-10 xs:hidden w-36">
-            <img :src="`https://image.tmdb.org/t/p/w185/${poster}`" alt="poster" class="w-full h-full object-cover rounded-xl">
-            
-          </div>
-        <!--left-->
-        <!--right-->
-         <div class="right xs:-mt-36">
-          <div class="title_rating">
-           <h2 class="font-base text-3xl tracking-wider md:text-xl md:pb-2">{{title}}</h2>
-           <span class="score">Rating 
-             <span :class="`${getColor(score)}`">{{score}}</span>
-             </span> 
-             <StarRating 
-             :increment="0.5"
-             :max-rating="10"
-             inactive-color="#fff"
-             active-color="#f6bb32"
-             :star-size="10"
-             v-model='rating'
-             @rating-selected ='movieRating(rating)'
-              />
-             </div>
-
-             <p>{{status}} | <span class="uppercase">{{lang}}</span> </p>
-             <p>{{ filter_genres }}</p>
-             <p>{{ release_date }}</p>
-             </div>
-             <!--right-->      
-         </div>
-         <!--movie-info-->
-     </div>  
-     </section>   
-    <!--movie-img-->
      
-  
-   <!--mobile-info-->
-       <!--movie-info-->
-      <div class="mobileInfo movieInfo  p-10  text-white flex items-center justify-center "> 
-       <!--left-->
-          <div class="left">
-            <img :src="`https://image.tmdb.org/t/p/w185/${poster}`" alt="poster" class="w-full h-full object-cover rounded-xl">
-            
-          </div>
-        <!--left-->
-        <!--right-->
-         <div class="right rounded-xl bg-gradient-to-l from-yellow-800 via-red-700  p-5 mt-6">
-          <div class="title_rating text-center">
-           <h2 class="font-base text-3xl tracking-widest sm:my-5 sm:text-xl sm:font-bold">{{title}}</h2>
-           <span class="score">Rating 
-             <span :class="`${getColor(score)}`">{{score}}</span>
-             </span>
-             <!--rating-component--> 
-             <div class="flex justify-center">
-             <StarRating 
-             :increment="0.5"
-             :max-rating="10"
-             inactive-color="#fff"
-             active-color="#f6bb32"
-             :star-size="10"
-             v-model='rating'
-             @rating-selected ='movieRating(rating)'
-              />
-              </div>
-           <!--rating-component-->
-             </div>
+    <Backdrop :id=id :backdrop=backdrop :tagline=tagline :poster=poster :title=title :score=score :status=status :lang=lang :filter_genres=filter_genres :release_date = release_date   type='movie' />
 
-             <p class="text-center">{{status}} | <span class="uppercase">{{lang}}</span> </p>
-             <p class="text-center">{{ filter_genres }}</p>
-             <p class="text-center">{{ release_date }}</p>
-             </div>
-             <!--right-->      
-         </div>
-         <!--movie-info-->
-    <!--mobile-info-->
-
-    <div class="container w-120 mx-auto p-16 md:w-full">
+    <div class="container w-120 mx-auto p-16 xl:w-full md:p-5">
     <!--overview-->
     <div class="overview rounded-xl bg-gradient-to-r from-green-900 my-24 p-8 md:my-5">
     <h3 class="tracking-widest text-3xl font-bold text-white pb-5 md:text-xl">OVERVIEW</h3>
@@ -163,13 +71,13 @@
 </template>
 
 <script>
-import StarRating from 'vue-star-rating'
+import Backdrop from '@/components/Backdrop'
 import scrollReveal from 'scrollreveal'
 import MultiSlide from '@/components/MultiSlide'
 import { mapGetters } from 'vuex'
 export default {
   components: {
-     MultiSlide, StarRating
+     MultiSlide,Backdrop
    },
   data() {
     return {
@@ -191,50 +99,6 @@ export default {
       status:'',
       lang:'',
       reviewsList:[]
-    }
-  },
-  methods: {
-      getColor(score) {
-        if(score >= 8) {
-          return 'text-green-300'
-        }else if (score >= 6) {
-          return 'text-yellow-500'
-        }else {
-          return 'text-red-600'
-        }
-      },
-    async movieRating(rating) {
-      console.log('tett')
-      console.log(rating)
-      if( !this.$store.state.guest_session_id ) {
-        this.$notify({
-              group:'alert',
-              type: 'warn',
-              text:'<h1>login please!<h1>',
-              title: '<b>Oh No!</b>',
-              duration: 5000,
-              speed: 500 
-        })
-        return 
-      }else {
-        try {
-             await this.$axios.post(`${process.env.VUE_APP_BASEURL}/movie/${this.movieId}/rating?api_key=${process.env.VUE_APP_KEY}&guest_session_id=${this.$store.state.guest_session_id}`, { 'value':rating } )
-           this.$notify({
-              group: 'alert',
-              type: 'success',
-              title:'<h1>success!</h1>',
-              text: 'Oh<b> Yeah!</b>',
-              duration: 2000,
-              speed: 5000,
-              width:'350px',          
-        })
-         }catch(err) {
-           if(err.response) {
-             alert('wrong')
-           }
-         }
-        
-      }
     }
   },
   computed: {
@@ -303,26 +167,6 @@ export default {
    },
    
 mounted() {
-  this.scrollReveal.reveal('.tagline', {   
-    duration: 1000,   
-    origin: 'top',   
-    reset: true,
-    mobile: true,  
-    distance: '200px',
-    opacity: 0.001,
-    easing: 'linear',
-    scale: 1.2,
-  });
-  // this.scrollReveal.reveal('.movieInfo', {   
-  //   duration: 1000, 
-  //   origin: 'left',   
-  //   reset: true,
-  //   mobile: true,  
-  //   distance: '20%',
-  //   opacity: 0,
-  //   easing: 'linear',
-  //   scale: 2.5,
-  //  });
    this.scrollReveal.reveal('.review-container', {   
     duration: 1000, 
     origin: 'right',
@@ -369,24 +213,5 @@ mounted() {
 </script>
 
 <style lang="scss" scoped>
-$font:'Varela Round', sans-serif;
-.backdrop {
-    background-image: linear-gradient( rgba(0, 0, 0, 0.6)
-    ,rgba(0,0,0,.5));
-  }
-  .tagline {
-    font-family: 'Eagle Lake', cursive;
-  }
-  h2,h3,.movieInfo {
-    font-family:$font;
-  }
-  .mobileInfo {
-    display: none;
-  }
-  @media(max-width:639px) {
-    .mobileInfo {
-        display:block;
-    }
 
-  }
 </style>

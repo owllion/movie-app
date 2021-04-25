@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper ">
    <nav  ref='navbar' class='fixed w-full  h-20 p-7 top-0 left-0 z-20 flex justify-between items-center duration-700 transition' >
 
    <!--menu-->
@@ -64,4 +64,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+nav {
+  max-width: 100vw;
+}
 </style>

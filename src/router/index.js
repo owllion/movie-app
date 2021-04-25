@@ -40,9 +40,9 @@ const routes = [
         meta: { transition: 'fade-in-right' },
       },
       {
-            path:'tv/:id/season/:num',
-            component: () => import('../views/Season'),
-            meta: { transition: 'fade-in-left' },
+        path:'tv/:id/season/:num',
+        component: () => import('../views/Season'),
+        meta: { transition: 'fade-in-right' },
       } 
     ]
   },

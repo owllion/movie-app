@@ -1,11 +1,11 @@
 <template>
   <div class="wrapper w-full">
     <!--ep-img-->
-    <section class="relative movie-img overflow-hidden w-full h-screen pb-10 md:h-auto md:pb-0"> 
+    <section class="relative movie-img overflow-hidden w-full h-screen pb-10 xl:h-auto md:pb-0"> 
       <div class="backdrop w-full h-full absolute top-0 left-0 z-10 pointer-events-none"></div> 
 
      <!--back icon-->
-      <div class="back-icon absolute left-28 top-36 z-10 cursor-pointer md:hidden">
+      <div class="back-icon cursor-pointer sm:hidden">
         <a @click="$router.go(-1)"><box-icon name='chevron-left' type='solid' flip='vertical' color='#ffffff' size='lg'></box-icon>
         </a>
       </div>
@@ -16,27 +16,16 @@
      <img class="swiper-img w-full h-full object-cover md:w-full " :src="`https://image.tmdb.org/t/p/w1280/${backdrop}`"/>
 
       <!--info-->
-      <div class="info absolute z-10 top-96 left-36 md:text-xl md:top-24 md:left-24 xs:text-lg xs:top-1/2 xs:left-10">
-
+      <div class="info">
       <div class="nam-num">
-      <h2 class=" text-white text-5xl mb-1 tracking-wider">{{epName}}</h2> 
-      <p class="text-2xl text-white tracking-wide">S{{num}} | EP {{epNum}}</p>
+      <h2 class=" text-white text-5xl mb-1 tracking-wider md:text-xl s:text-sm">{{epName}}</h2> 
+      <p class="md:text-sm text-2xl text-white tracking-wide">S{{num}} | EP {{epNum}}</p>
       </div>
 
       <div class="title_rating">
-           <span class="score text-2xl text-white tracking-wide">Rating 
-             <span :class="`${getColor(score)}`">{{score}}</span>
+           <span class="score text-2xl text-white tracking-wide md:text-sm">Rating 
+             <span :class="`${getColor(score)}`" class="md:text-sm">{{score}}</span>
              </span> 
-             <StarRating 
-             :increment="0.5"
-             :max-rating="10"
-             inactive-color="#fff"
-             active-color="#f6bb32"
-             :star-size="15"
-             v-model='rating'
-             @rating-selected ='epRating(rating)'
-             class="text-white"
-              />
         </div>
 
        </div>
@@ -52,12 +41,16 @@
        <div class="ep-container flex flex-col justify-center items-center">
          <h3 class="text-white text-5xl mb-1 tracking-wider ">EP</h3>
          <!--choose-->
-         <div class="choose flex flex-wrap w-4/5 mx-auto">
 
-          <div v-for='count in epTotal' :key='count' class="ep text-center m-3">
-              <button class="text-white text-xl border-2 border-solid border-yellow-200 rounded-xl p-2 block w-20 md:w-full" @click='setEp(count)'>{{count}}</button>
+         <select class="selectEp border-2 border-solid border-green-100 bg-green-500 text-white font-semibold rounded-xl px-3 py-4 w-36 focus:outline-none hidden xs:block" @change='setEp(count)' v-model='count'>
+            <option :value="count" v-for='count in epTotal' :key='count'>{{count}}</option>
+         </select>
+
+         <div class="choose flex flex-wrap justify-center w-4/5 mx-auto md:w-full xs:hidden">          
+          <div v-for='count in epTotal' :key='count' class="ep m-3">
+              <button class="text-center text-white text-xl border-2 border-solid border-yellow-200 rounded-xl p-2 block w-20 md:w-36" @click='setEp(count)'>{{count}}</button>        
             </div>
-          
+           
             </div> <!--choose-->
          </div> <!--ep-container -->     
      </section>
@@ -65,7 +58,7 @@
 
      <!--cast & overview-->
      <section class="cast_overview w-full">
-       <div class="container w-120 mx-auto p-16 md:w-full">
+       <div class="container w-120 mx-auto p-16 xl:w-full md:p-5">
 
       <!--overview-->
       <div class="overview rounded-xl bg-gradient-to-r from-green-900 mt-5 my-20 p-8 ">
@@ -91,18 +84,17 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import StarRating from 'vue-star-rating'
 import MultiSlide from '@/components/MultiSlide'
 import scrollReveal from 'scrollreveal'
 export default {
   components: {
-    MultiSlide,StarRating
+    MultiSlide
    },
   data() {
     return {
       scrollReveal: scrollReveal(),
-      rating:0,
       epTotal:'',
+      count:1,
       id:'',
       num:'',
       date:'',
@@ -150,46 +142,6 @@ export default {
            }
          }
       },
-    async epRating(rating) {
-      if( !this.$store.state.guest_session_id ) {
-        this.$notify({
-              group: 'alert',
-              type: 'warn',
-              text:'<h1>login please!<h1>',
-              title: '<b>Oh No!</b>',
-              duration: 5000,
-              speed: 500 
-        })
-        return 
-      }else {
-        try {
-           await this.$axios.post(`${process.env.VUE_APP_BASEURL}/tv/${this.id}/season/${this.num}/episode/${this.epNum}/rating?api_key=${process.env.VUE_APP_KEY}&guest_session_id=${this.$store.state.guest_session_id}`, { 'value':rating } )
-
-           this.$notify({
-              group: 'alert',
-              type: 'success',
-              title:'<h1>success!</h1>',
-              text: `<b>Your rating: ${rating}</b>`,
-              duration: 2000,
-              speed: 500,
-              width:'350px',          
-           })
-         }catch(err) {
-           if(err.response) {
-            this.$notify({
-              group: 'alert',
-              type: 'error',
-              title:'<h1>OH NO!</h1>',
-              text: '<b>something wrong!</b>',
-              duration: 2000,
-              speed: 500,
-              width:'350px',          
-        })
-           }
-         }
-        
-      }
-    }
   },
   computed: {
      ...mapGetters(['isLoading']),
@@ -255,11 +207,22 @@ export default {
   h2,h3{
     font-family: 'Eagle Lake', cursive;
   }
-  .choose {
-    // max-width: 1300px;
-    .ep {
-     width: 13%;
+  .info {
+    position: absolute;
+    top: 40%;
+    left: 10%;
+    z-index: 10;
   }
+  .back-icon {
+    position: absolute;
+    top: 15%;
+    z-index: 10;
+    left: 8%;
   }
+//   .choose {
+//     .ep {
+//      width: 13%;
+//   }
+// }
   
 </style>

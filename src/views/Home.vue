@@ -3,7 +3,7 @@
     <Swiper :list =movieList type='POPULAR' link='movie' v-if="show === 'movie'"/>
     <Swiper :list =tvList type='POPULAR' link='tv' v-if="show === 'tv'" />
 
-    <div class="btn-container mt-36 px-10 flex flex-wrap justify-center md:-mt-48">
+    <div class="btn-container mt-36 px-10 flex flex-wrap justify-center md:mt-5">
          <button class="movie-btn block w-99  mr-10 p-3 border-2 border-solid  text-center text-xl text-white tracking-widest font-semibold transition transform duration-500 hover:scale-90 md:w-full xl:mr-0 xl:mb-8" @click="show ='movie'">MOVIE</button>
          <button class="tv-btn block w-99  p-3 border-2 border-solid  text-center text-xl text-white tracking-widest font-semibold transition transform duration-500 hover:scale-90 md:w-full" @click="show ='tv'">TV SHOWS</button>
       </div>
@@ -74,9 +74,5 @@ export default {
    border-radius: 100px;
    border-image: linear-gradient(45deg, rgb(160, 9, 122), rgb(80, 5, 21)) 1;
 }    
-@media(max-width:415px) {
-    .btn-container {
-       margin-top: -25rem !important;
-    }
-}
+
 </style>

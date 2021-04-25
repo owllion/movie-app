@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper w-full fixed top-0 left-0 z-20">
+  <div class="wrapper  w-screen fixed top-0 left-0 z-20">
 
    <div class="backdrop w-full h-full absolute top-0 left-0 z-0" ></div>
 
@@ -60,6 +60,9 @@ export default {
 @mixin animation($name,$time){
   animation:$name;
   animation-duration: $time; 
+}
+.container {
+  max-width:100vw;
 }
 .backdrop {
     background-image: linear-gradient( rgba(9, 7, 7, 0.6)

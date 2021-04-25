@@ -7,11 +7,11 @@
       <router-link :to="`/details/${link}/${item.id}`"  >  
          <div class="backdrop w-full h-full absolute top-0 left-0 z-10"></div>
 
-         <div class="absolute p-10 z-10 text-white bottom-48 left-10 md:bottom-0 md:left-0 text-xl">       
-             <p class="tracking-wider">{{type}}</p>
+         <div class="absolute p-10 z-10 text-white bottom-48 left-10 md:bottom-0 md:left-0 s:top-9">       
+             <p class="tracking-wider s:hidden">{{type}}</p>
 
-             <h2 class="font-bold tracking-widest text-2xl" v-if='item.title'>{{item.title}}</h2>
-             <h2 class="font-bold tracking-widest text-2xl" v-if='item.name'>{{item.name}}</h2>
+             <h2 class="font-bold  text-2xl xs:tracking-normal xs:text-sm" v-if='item.title'>{{item.title}}</h2>
+             <h2 class="font-bold tracking-widest text-2xl xs:tracking-normal xs:text-sm" v-if='item.name'>{{item.name}}</h2>
 
              <p >Rating <span :class="`${getColor(item.vote_average)}`">{{item.vote_average}}</span> </p>
             

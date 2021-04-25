@@ -1,8 +1,14 @@
 <template>
-  <div class="wrapper w-full py-20 bg-gradient-to-b from-black via-gray-700 to-blue-900">
-     <section class="p-20" >
-   <Rated :list=ratedMovies type='Movie' link='movie' />
-   <Rated :list=ratedTv type='TV Shows' link='tv' />
+  <div class="wrapper w-full  h-full pt-20 pb-64 bg-gradient-to-b from-black via-gray-700 to-blue-900">
+    <section class="p-20" >
+     <div class="mb-12">
+    <Rated :list=ratedMovies type='Movie' link='movie' />
+    </div>
+
+    <div>
+    <Rated :list=ratedTv type='TV Shows' link='tv' />
+    </div>
+
    </section>
   </div>
 </template>
@@ -63,6 +69,8 @@ export default {
 <style lang="scss" scoped>
 $neon-text:#16c7a1;
 $neon-border:#086830;
+
+
  h3 {
       font-family: 'Eagle Lake', cursive;
       border: 2px solid #fff;
