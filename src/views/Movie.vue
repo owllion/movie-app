@@ -5,14 +5,7 @@
 
     <div class="container w-120 mx-auto p-16 xl:w-full md:p-5">
     <!--overview-->
-    <div class="overview rounded-xl bg-gradient-to-r from-green-900 my-24 p-8 md:my-5">
-    <h3 class="tracking-widest text-3xl font-bold text-white pb-5 md:text-xl">OVERVIEW</h3>
-    <p class="leading-7">{{overview}}</p>
-    <div class="imdb-link flex justify-end pt-8">
-    <a :href="`http://imdb.com/title/${imbdId}`" target="_blank" class="text-center tracking-wider rounded-xl bg-green-800 text-white p-4 font-semibold duration-500 transition hover:bg-white hover:text-green-800">View On IMDb</a>
-    </div>
-
-    </div>
+      <Overview :overview =overview :imdbId=imdbId />
     <!--overview-->
 
      <!--cast-->
@@ -72,12 +65,13 @@
 
 <script>
 import Backdrop from '@/components/Backdrop'
+import Overview from '@/components/Overview'
 import scrollReveal from 'scrollreveal'
 import MultiSlide from '@/components/MultiSlide'
 import { mapGetters } from 'vuex'
 export default {
   components: {
-     MultiSlide,Backdrop
+     MultiSlide,Backdrop, Overview
    },
   data() {
     return {
@@ -85,7 +79,7 @@ export default {
       rating:0,
       movieId:'',
       id:'',
-      imbdId:'',
+      imdbId:'',
       backdrop:'',
       title:'',
       genres:[],
@@ -137,7 +131,7 @@ export default {
       const { data: { id,imdb_id,backdrop_path, genres ,title, overview,poster_path, release_date, tagline, vote_average, videos:{results},credits: {cast}, status,reviews:{results:reviews}, original_language } } = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/movie/${this.id}?api_key=${process.env.VUE_APP_KEY}&append_to_response=videos,credits,reviews`)
 
       this.movieId = id
-      this.imbdId = imdb_id
+      this.imdbId = imdb_id
       this.backdrop = backdrop_path
       this.title = title
       this.overview = overview

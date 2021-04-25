@@ -3,7 +3,7 @@
     
     <Backdrop :id=id :backdrop=backdrop :tagline=tagline :poster=poster :title=title :score=score :status=status :lang=lang :filter_genres=filter_genres :release_date = release_date :seasons =seasons :episode_count =episode_count  type='tv' />
     
-    <div class="container w-120 mx-auto p-16 xl:w-full md:p-5">
+    <div class="container w-120 mx-auto px-16 py-36 xl:w-full md:p-5">
 
     <!-- season -->
     
@@ -14,10 +14,7 @@
     <!-- season -->
 
     <!--overview-->
-    <div class="overview rounded-xl bg-gradient-to-r from-green-900 my-24 p-8 md:my-9">
-    <h3 class="tracking-widest text-3xl font-bold text-white pb-5 md:text-xl">OVERVIEW</h3>
-    <p class="leading-7">{{overview}}</p>
-    </div>
+    <Overview :overview=overview />
     <!--overview-->
 
      <!--cast-->
@@ -77,13 +74,14 @@
 
 <script>
 import Backdrop from '@/components/Backdrop'
+import Overview from '@/components/Overview'
 import scrollReveal from 'scrollreveal'
 import MultiSlide from '@/components/MultiSlide'
 import SeasonSwiper from '@/components/Season-swiper'
 import { mapGetters } from 'vuex'
 export default {
   components: {
-     MultiSlide,SeasonSwiper,Backdrop
+     MultiSlide, SeasonSwiper, Backdrop , Overview 
    },
   data() {
     return {

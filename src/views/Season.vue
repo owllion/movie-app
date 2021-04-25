@@ -39,7 +39,7 @@
      <section class=" mt-16 w-4/5 mx-auto pb-6">
        
        <div class="ep-container flex flex-col justify-center items-center">
-         <h3 class="text-white text-5xl mb-1 tracking-wider ">EP</h3>
+         <h3 class="ep-title text-white text-5xl mb-1 tracking-wider ">EP</h3>
          <!--choose-->
 
          <select class="selectEp border-2 border-solid border-green-100 bg-green-500 text-white font-semibold rounded-xl px-3 py-4 w-36 focus:outline-none hidden xs:block" @change='setEp(count)' v-model='count'>
@@ -58,13 +58,10 @@
 
      <!--cast & overview-->
      <section class="cast_overview w-full">
-       <div class="container w-120 mx-auto p-16 xl:w-full md:p-5">
+       <div class="container w-120 mx-auto px-16 py-1 xl:w-full md:p-5 ">
 
       <!--overview-->
-      <div class="overview rounded-xl bg-gradient-to-r from-green-900 mt-5 my-20 p-8 ">
-      <h3 class="tracking-widest text-3xl font-bold text-white pb-5 md:text-xl">OVERVIEW</h3>
-      <p class="leading-7 text-white">{{overview}}</p>
-    </div>
+      <Overview :overview=overview />
     <!--overview-->
 
      <!--cast-->
@@ -86,9 +83,10 @@
 import { mapGetters } from 'vuex'
 import MultiSlide from '@/components/MultiSlide'
 import scrollReveal from 'scrollreveal'
+import Overview from '@/components/Overview'
 export default {
   components: {
-    MultiSlide
+    MultiSlide , Overview
    },
   data() {
     return {
@@ -204,7 +202,7 @@ export default {
     background-image: linear-gradient( rgba(0, 0, 0, 0.6)
     ,rgba(0,0,0,.5));
   }
-  h2,h3{
+  h2,.ep-title{
     font-family: 'Eagle Lake', cursive;
   }
   .info {
@@ -219,10 +217,4 @@ export default {
     z-index: 10;
     left: 8%;
   }
-//   .choose {
-//     .ep {
-//      width: 13%;
-//   }
-// }
-  
 </style>
