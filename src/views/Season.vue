@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper w-full">
     <!--ep-img-->
     <section class="relative movie-img overflow-hidden w-full h-screen pb-10 md:h-auto md:pb-0"> 
       <div class="backdrop w-full h-full absolute top-0 left-0 z-10 pointer-events-none"></div> 
@@ -34,7 +34,7 @@
              active-color="#f6bb32"
              :star-size="15"
              v-model='rating'
-             @rating-selected ='movieRating(rating)'
+             @rating-selected ='epRating(rating)'
              class="text-white"
               />
         </div>
@@ -47,29 +47,60 @@
     <!--ep-img-->
      
      <!--choose ep-->
-     <section>
-       <div class="choose flex flex-wrap justify-around">
-          <div v-for='count in epTotal' :key='count'>
-              <button class="text-white text-xl border-2 border-solid border-yellow-200 rounded-xl p-2 w-16">{{count}}</button>
-              </div>
-         </div>
-         
+     <section class=" mt-16 w-4/5 mx-auto pb-6">
        
+       <div class="ep-container flex flex-col justify-center items-center">
+         <h3 class="text-white text-5xl mb-1 tracking-wider ">EP</h3>
+         <!--choose-->
+         <div class="choose flex flex-wrap w-4/5 mx-auto">
+
+          <div v-for='count in epTotal' :key='count' class="ep text-center m-3">
+              <button class="text-white text-xl border-2 border-solid border-yellow-200 rounded-xl p-2 block w-20 md:w-full" @click='setEp(count)'>{{count}}</button>
+            </div>
+          
+            </div> <!--choose-->
+         </div> <!--ep-container -->     
      </section>
      <!--choose ep-->
+
+     <!--cast & overview-->
+     <section class="cast_overview w-full">
+       <div class="container w-120 mx-auto p-16 md:w-full">
+
+      <!--overview-->
+      <div class="overview rounded-xl bg-gradient-to-r from-green-900 mt-5 my-20 p-8 ">
+      <h3 class="tracking-widest text-3xl font-bold text-white pb-5 md:text-xl">OVERVIEW</h3>
+      <p class="leading-7 text-white">{{overview}}</p>
+    </div>
+    <!--overview-->
+
+     <!--cast-->
+     <div class="cast">
+       <h3 class="text-white tracking-widest text-3xl font-bold pb-5 px-5 md:text-xl">CAST</h3>
+       <MultiSlide :cast=filter_cast /> 
+    </div> 
+    <!--cast-->
+
+    </div>
+    <!--container-->
+     </section>
+     <!--cast & overview-->
+
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import StarRating from 'vue-star-rating'
-
+import MultiSlide from '@/components/MultiSlide'
+import scrollReveal from 'scrollreveal'
 export default {
   components: {
-    StarRating
+    MultiSlide,StarRating
    },
   data() {
     return {
+      scrollReveal: scrollReveal(),
       rating:0,
       epTotal:'',
       id:'',
@@ -93,7 +124,33 @@ export default {
           return 'text-red-600'
         }
       },
-    async movieRating(rating) {
+      async setEp(ep) {
+        try {
+            this.loading = true
+            
+            const { data: { air_date,episode_number, name, overview,still_path,vote_average, credits: {cast} }} = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/tv/${this.id}/season/${this.num}/episode/${ep}?api_key=${process.env.VUE_APP_KEY}&append_to_response=credits`)
+
+            this.date = air_date
+            this.epNum = episode_number
+            this.epName = name
+            this.overview = overview
+            this.backdrop = still_path
+            this.score = vote_average
+            this.castList = cast
+
+            this.loading = false
+         }catch(err) {
+            this.loading = false
+            if(err.response) {
+              this.$notify({
+               group:'alert',
+               title:'<h1>OH NO!</h1>',
+               text:'<h1>SOMETHING WRONG!</h1>'
+             })
+           }
+         }
+      },
+    async epRating(rating) {
       if( !this.$store.state.guest_session_id ) {
         this.$notify({
               group: 'alert',
@@ -106,7 +163,7 @@ export default {
         return 
       }else {
         try {
-           await this.$axios.post(`${process.env.VUE_APP_BASEURL}/movie/${this.movieId}/rating?api_key=${process.env.VUE_APP_KEY}&guest_session_id=${this.$store.state.guest_session_id}`, { 'value':rating } )
+           await this.$axios.post(`${process.env.VUE_APP_BASEURL}/tv/${this.id}/season/${this.num}/episode/${this.epNum}/rating?api_key=${process.env.VUE_APP_KEY}&guest_session_id=${this.$store.state.guest_session_id}`, { 'value':rating } )
 
            this.$notify({
               group: 'alert',
@@ -143,6 +200,13 @@ export default {
       set(value) {
         return this.$store.commit('setLoading', value)
       }
+    },
+    filter_cast() {
+       let filter = [];
+       this.castList.forEach(i=> {
+         if(i.popularity > 3)  filter.push(i)       
+      })
+      return filter  
     }
   },
    async created() {
@@ -188,8 +252,14 @@ export default {
     background-image: linear-gradient( rgba(0, 0, 0, 0.6)
     ,rgba(0,0,0,.5));
   }
-  h2,h3,h4 {
+  h2,h3{
     font-family: 'Eagle Lake', cursive;
   }
-
+  .choose {
+    // max-width: 1300px;
+    .ep {
+     width: 13%;
+  }
+  }
+  
 </style>

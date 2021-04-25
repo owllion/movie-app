@@ -9,7 +9,7 @@
 
         <!--link-->
         <div class="link-container mt-10 text-white font-semibold">
-          <router-link to='/profile' class="link text-center focus:outline-none focus:ring-4 focus:ring-blue-400 focus:ring-opacity-80 font-semibold block rounded-xl bg-gradient-to-r  from-blue-900 to-gray-900 p-3 mb-5 tracking-widest transition transform duration-500 hover:scale-105" @click='getGuestId()'>AS GUEST</router-link> 
+          <router-link to='/profile' class="link text-center focus:outline-none focus:ring-4 focus:ring-blue-400 focus:ring-opacity-80 font-semibold block rounded-xl bg-gradient-to-r  from-blue-900 to-gray-900 p-3 mb-5 tracking-widest transition transform duration-500 hover:scale-105" @click.native='getGuestId'>AS GUEST</router-link> 
         </div>
         <!--link-->
        </div>
@@ -52,9 +52,11 @@ export default {
   },
   methods: {
      async getGuestId() {
+       console.log('請求session')
        try {
+                console.log('請求session2')
            const {data: { guest_session_id } } = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/authentication/guest_session/new?api_key=${process.env.VUE_APP_KEY}`)
-           
+                  console.log('請求session3')
            this.$store.commit('setGuestId', guest_session_id)
           console.log(this.$store.state.guest_session_id)
           this.$notify({
@@ -73,19 +75,19 @@ export default {
 
      }
   },
-  // async created() {
-  //   try {
-  //     const { data: { request_token } } = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/authentication/token/new?api_key=${process.env.VUE_APP_KEY}`)
-  //     this.$store.commit('setToken', request_token)
-  //     console.log(this.$store.state.token)
-  //   }catch(err) {
-  //     if(err.response) {
-  //       alert('something wrong!')
-  //     }
-  //   }
+  async created() {
+    try {
+      const { data: { request_token } } = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/authentication/token/new?api_key=${process.env.VUE_APP_KEY}`)
+      this.$store.commit('setToken', request_token)
+      console.log(this.$store.state.token)
+    }catch(err) {
+      if(err.response) {
+        alert('something wrong!')
+      }
+    }
       
       
-  // },
+  },
   mounted() {
     this.scrollReveal.reveal('.recommend', {   
     duration: 1000,   

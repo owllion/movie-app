@@ -62,7 +62,7 @@ export default {
            },
            {
              name:'Profile',
-             link:'RATED MOVIE'
+             link:'RATED '
            },
         ]
     }

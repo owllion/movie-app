@@ -38,19 +38,12 @@ const routes = [
         path:'tv/:id',
         component: () => import('../views/TV'),
         meta: { transition: 'fade-in-right' },
-        // children:[
-        //   {
-        //     path:'season/:num',
-        //     component: () => import('../views/Season'),
-        //     meta: { transition: 'fade-in-left' },
-        //   }
-        // ]
       },
       {
             path:'tv/:id/season/:num',
             component: () => import('../views/Season'),
             meta: { transition: 'fade-in-left' },
-      }    
+      } 
     ]
   },
   {

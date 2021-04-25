@@ -27,7 +27,7 @@
     <swiper-slide v-for='c in cast' :key=c.name class="transition transform duration-700 hover:scale-105">            
       <router-link :to="`/details/people/${c.id}`">
       <img :src="`https://image.tmdb.org/t/p/original/${c.profile_path}`"  alt="No Image:(" class="rounded-xl">
-      <h3 class="text-center pt-3">{{c.name}}</h3>
+      <h3 class="text-center pt-3 text-white">{{c.name}}</h3>
       </router-link>
     </swiper-slide>
   </swiper>

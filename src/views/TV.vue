@@ -39,7 +39,7 @@
              active-color="#f6bb32"
              :star-size="10"
              v-model='rating'
-             @rating-selected ='movieRating(rating)'
+             @rating-selected ='tvRating(rating)'
               />
              </div>
 
@@ -212,7 +212,7 @@ export default {
           return 'text-red-600'
         }
       },
-    async movieRating(rating) {
+    async tvRating(rating) {
       if( !this.$store.state.guest_session_id ) {
         this.$notify({
               group: 'alert',
@@ -225,7 +225,7 @@ export default {
         return 
       }else {
         try {
-           await this.$axios.post(`${process.env.VUE_APP_BASEURL}/movie/${this.movieId}/rating?api_key=${process.env.VUE_APP_KEY}&guest_session_id=${this.$store.state.guest_session_id}`, { 'value':rating } )
+           await this.$axios.post(`${process.env.VUE_APP_BASEURL}/tv/${this.id}/rating?api_key=${process.env.VUE_APP_KEY}&guest_session_id=${this.$store.state.guest_session_id}`, { 'value':rating } )
 
            this.$notify({
               group: 'alert',
