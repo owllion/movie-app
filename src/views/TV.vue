@@ -3,7 +3,7 @@
     
     <Backdrop :id=id :backdrop=backdrop :tagline=tagline :poster=poster :title=title :score=score :status=status :lang=lang :filter_genres=filter_genres :release_date = release_date :seasons =seasons :episode_count =episode_count  type='tv' />
     
-    <div class="container w-120 mx-auto px-16 py-36 xl:w-full md:p-5">
+    <div class="container w-120 mx-auto p-16 xl:w-full md:p-5">
 
     <!-- season -->
     

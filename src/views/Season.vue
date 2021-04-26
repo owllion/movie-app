@@ -80,6 +80,7 @@
 </template>
 
 <script>
+import { getEpDetail , getSeasonEpLength } from '@/api/tmdb'
 import { mapGetters } from 'vuex'
 import MultiSlide from '@/components/MultiSlide'
 import scrollReveal from 'scrollreveal'
@@ -117,9 +118,14 @@ export default {
       async setEp(ep) {
         try {
             this.loading = true
+          
+            const data = {
+              id:this.id,
+              num:this.num,
+              ep
+            }
+            const { data: { air_date,episode_number, name, overview,still_path,vote_average, credits: {cast} }} = await getEpDetail(data)
             
-            const { data: { air_date,episode_number, name, overview,still_path,vote_average, credits: {cast} }} = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/tv/${this.id}/season/${this.num}/episode/${ep}?api_key=${process.env.VUE_APP_KEY}&append_to_response=credits`)
-
             this.date = air_date
             this.epNum = episode_number
             this.epName = name
@@ -165,9 +171,15 @@ export default {
      this.num = this.$route.params.num
 
     try {
-      this.loading = true
-      //get season details
-      const { data: { air_date,episode_number, name, overview,still_path,vote_average, credits: {cast} }} = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/tv/${this.id}/season/${this.num}/episode/1?api_key=${process.env.VUE_APP_KEY}&append_to_response=credits`)
+      this.loading = true  
+      
+      //get ep detail
+      const data = {
+          id:this.id,
+          num:this.num,
+          ep:1
+      }
+      const { data: { air_date,episode_number, name, overview,still_path,vote_average, credits: {cast} }} = await getEpDetail(data)
 
       this.date = air_date
       this.epNum = episode_number
@@ -177,10 +189,16 @@ export default {
       this.score = vote_average
       this.castList = cast
       
-      const {data: {episodes}} = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/tv/${this.id}/season/${this.num}?api_key=${process.env.VUE_APP_KEY}&language=en-US`)
+      //get season ep length
+      const data2 = {
+         id:this.id,
+         num:this.num,
+      }
+      const {data: { episodes } } = await getSeasonEpLength(data2)
       this.epTotal = episodes.length 
 
       this.loading = false
+
     }catch(err) {
       this.loading = false
       if(err.response) {
