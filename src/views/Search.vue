@@ -58,6 +58,7 @@
 </template>
 
 <script>
+import { search } from '@/api/tmdb'
 import { mapGetters } from 'vuex'
 import scrollReveal from 'scrollreveal'
 export default {
@@ -101,7 +102,7 @@ export default {
   async beforeRouteUpdate (to, next) {
     const keyword = to.params.keyword
    try {
-         const {data: { results } } = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/search/multi?api_key=${process.env.VUE_APP_KEY}&language=en-US&query=${keyword}&page=1&include_adult=false`)
+         const {data: { results } } = await search(keyword)
 
          this.results = results
         }catch(err){
@@ -120,16 +121,21 @@ export default {
         this.loading = true
         this.keyword = this.$route.params.keyword
 
-        const {data: { results } } = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/search/multi?api_key=${process.env.VUE_APP_KEY}&language=en-US&query=${this.keyword}&page=1&include_adult=false`)
-          
+        const {data: { results } } = await search(this.keyword)
+
+        this.results = results
         this.loading = false
          
-        console.log(results)
-        this.results = results
+        
      }catch(err) {
        this.loading = false
        if(err.response) {
-         alert('wrong!')
+         this.$notify({
+          group: 'alert',
+          type:'error',
+          title:'<h1>Oops!</h1>',
+          text:'something wrong!'
+        })
        }
      }
    },

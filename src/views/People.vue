@@ -66,6 +66,7 @@
 </template>
 
 <script>
+import { getPersonDetail } from '@/api/tmdb'
 import MultiSlide from '@/components/MultiSlide'
 import scrollReveal from 'scrollreveal'
 import { mapGetters } from 'vuex'
@@ -119,9 +120,10 @@ export default {
   async created() {
      this.id = this.$route.params.id
      this.movieId = this.$route.params.movieId
-     console.log(`這是movieid*-->${this.movieId}`)
+
      try {
       this.loading = true
+
       const { data: { 
        name,
        biography,
@@ -130,7 +132,7 @@ export default {
        known_for_department,
        images:{ profiles },
        imdb_id
-       }} = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/person/${this.id}?api_key=${process.env.VUE_APP_KEY}&append_to_response=combined_credits,images`)
+       }} = await getPersonDetail(this.id)
      
       this.name = name
       this.biography = biography
@@ -139,10 +141,16 @@ export default {
       this.creditList = cast 
       this.known_for = known_for_department
       this.imbd = imdb_id
+
       this.loading = false
      }catch(err) {
        if(err.response) {
-          alert('something wrong!')
+          this.$notify({
+            group:'alert',
+            type:'error',
+            title:'<h1>Oops!</h1>',
+            text:'something wrong!'
+        })
        }
      }
      

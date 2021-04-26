@@ -73,6 +73,7 @@
 </template>
 
 <script>
+import { getTvDetail } from '@/api/tmdb'
 import Backdrop from '@/components/Backdrop'
 import Overview from '@/components/Overview'
 import scrollReveal from 'scrollreveal'
@@ -115,47 +116,7 @@ export default {
         }else {
           return 'text-red-600'
         }
-      },
-    async tvRating(rating) {
-      if( !this.$store.state.guest_session_id ) {
-        this.$notify({
-              group: 'alert',
-              type: 'warn',
-              text:'<h1>login please!<h1>',
-              title: '<b>Oh No!</b>',
-              duration: 5000,
-              speed: 500 
-        })
-        return 
-      }else {
-        try {
-           await this.$axios.post(`${process.env.VUE_APP_BASEURL}/tv/${this.id}/rating?api_key=${process.env.VUE_APP_KEY}&guest_session_id=${this.$store.state.guest_session_id}`, { 'value':rating } )
-
-           this.$notify({
-              group: 'alert',
-              type: 'success',
-              title:'<h1>success!</h1>',
-              text: `<b>Your rating: ${rating}</b>`,
-              duration: 2000,
-              speed: 500,
-              width:'350px',          
-           })
-         }catch(err) {
-           if(err.response) {
-            this.$notify({
-              group: 'alert',
-              type: 'error',
-              title:'<h1>OH NO!</h1>',
-              text: '<b>something wrong!</b>',
-              duration: 2000,
-              speed: 500,
-              width:'350px',          
-        })
-           }
-         }
-        
       }
-    }
   },
   computed: {
      ...mapGetters(['isLoading']),
@@ -190,7 +151,9 @@ export default {
 
     try {
       this.loading = true
-      const { data: { backdrop_path ,first_air_date, genres ,  name,  original_language, number_of_episodes, number_of_seasons, overview, poster_path, seasons,status, tagline, vote_average, videos:{results},credits: {cast}, reviews:{results:reviews} } } = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/tv/${this.id}?api_key=${process.env.VUE_APP_KEY}&append_to_response=videos,credits,reviews`)
+
+      const { data: { backdrop_path ,first_air_date, genres ,  name,  original_language, number_of_episodes, number_of_seasons, overview, poster_path, seasons,status, tagline, vote_average, videos:{results},credits: {cast}, reviews:{results:reviews} } } = await getTvDetail(this.id) 
+
 
       this.backdrop = backdrop_path
       this.title = name
@@ -216,6 +179,7 @@ export default {
       this.loading = false
       if(err.response) {
         this.$notify({
+          group:'alert',
           type:'error',
           title:'<h1>Oops!</h1>',
           text:'something wrong!'
@@ -226,8 +190,7 @@ export default {
      
    },
    
-mounted() {
-  
+mounted() { 
    this.scrollReveal.reveal('.review-container', {   
     duration: 1000, 
     origin: 'right',

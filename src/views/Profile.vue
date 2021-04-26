@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper w-full  h-full pt-20 pb-64 bg-gradient-to-b from-black via-gray-700 to-blue-900">
+  <div class="wrapper w-full  h-full pt-20 pb-64 bg-black">
     <section class="p-20" >
      <div class="mb-12">
     <Rated :list=ratedMovies type='Movie' link='movie' />

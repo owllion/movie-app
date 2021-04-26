@@ -64,6 +64,7 @@
 </template>
 
 <script>
+import { getMovieDetail } from '@/api/tmdb'
 import Backdrop from '@/components/Backdrop'
 import Overview from '@/components/Overview'
 import scrollReveal from 'scrollreveal'
@@ -128,7 +129,7 @@ export default {
 
     try {
       this.loading = true
-      const { data: { id,imdb_id,backdrop_path, genres ,title, overview,poster_path, release_date, tagline, vote_average, videos:{results},credits: {cast}, status,reviews:{results:reviews}, original_language } } = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/movie/${this.id}?api_key=${process.env.VUE_APP_KEY}&append_to_response=videos,credits,reviews`)
+      const { data: { id,imdb_id,backdrop_path, genres ,title, overview,poster_path, release_date, tagline, vote_average, videos:{results},credits: {cast}, status,reviews:{results:reviews}, original_language } } = await getMovieDetail(this.id)
 
       this.movieId = id
       this.imdbId = imdb_id

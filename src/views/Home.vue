@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { getMoviePopular , getTvPopular } from '@/api/tmdb'
 import Swiper from '@/components/Swiper' 
 import Movie from '@/components/Home-movie'
 import TV from '@/components/Home-TV'
@@ -43,19 +44,20 @@ export default {
   async created(){  
      try {
        this.loading = true
-       const { data: { results } } = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/movie/popular?api_key=${process.env.VUE_APP_KEY}&language=en-US&page=1`)
-     
+
+       const { data: { results } } = await getMoviePopular()   
        this.movieList = results
 
-       const { data: { results:tv } } = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/tv/popular?api_key=${process.env.VUE_APP_KEY}&language=en-US&page=1`)
-
+       const { data: { results:tv } } = await getTvPopular()
        this.tvList = tv
        this.show ='tv'  
+
        this.loading = false 
     }catch(err) {
         this.loading = false
         if(err.response) {
          this.$notify({
+           group:'alert',
            type:'error',
            title:'<h1>Oops!</h1>',
            text:'something wrong!'

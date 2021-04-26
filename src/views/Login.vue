@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import { getGusetId, getToken } from '@/api/tmdb'
 import scrollReveal from 'scrollreveal'
 export default {
   computed: {
@@ -52,24 +53,27 @@ export default {
   },
   methods: {
      async getGuestId() {
-       console.log('請求session')
        try {
-                console.log('請求session2')
-           const {data: { guest_session_id } } = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/authentication/guest_session/new?api_key=${process.env.VUE_APP_KEY}`)
-                  console.log('請求session3')
+           const {data: { guest_session_id } } = await getGusetId()
+
            this.$store.commit('setGuestId', guest_session_id)
-          console.log(this.$store.state.guest_session_id)
-          this.$notify({
-              group: 'foo',
+           console.log(this.$store.state.guest_session_id)
+           this.$notify({
+              group: 'alert',
               type: 'success',
               title:'Success!',
-              text: 'Oh<b> Yeah!</b>',
+              text: '<b>Oh Yeah!</b>',
               duration: 5000,
-              speed: 1000 
+              speed: 5000 
         })
        }catch(err) {
          if(err.response) {
-           alert('something wrong!')
+           this.$notify({
+            group: 'alert',
+            type:'error',
+            title:'<h1>Oops!</h1>',
+            text:'something wrong!'
+        })
          }
        }
 
@@ -77,12 +81,17 @@ export default {
   },
   async created() {
     try {
-      const { data: { request_token } } = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/authentication/token/new?api_key=${process.env.VUE_APP_KEY}`)
+      const { data: { request_token } } = await getToken()
       this.$store.commit('setToken', request_token)
       console.log(this.$store.state.token)
     }catch(err) {
       if(err.response) {
-        alert('something wrong!')
+        this.$notify({
+          group: 'alert',
+          type:'error',
+          title:'<h1>Oops!</h1>',
+          text:'something wrong!'
+        })
       }
     }
       

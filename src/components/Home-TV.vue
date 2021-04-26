@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import { getAirToday, getOnAir , getTvTopRated } from '@/api/tmdb'
 import MultiSlide from '@/components/MultiSlide'
 import { mapGetters } from 'vuex'
 export default {
@@ -50,16 +51,14 @@ export default {
   async created() {
      try {
         this.loading = true
-        const {data:{results}} = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/tv/airing_today?api_key=${process.env.VUE_APP_KEY}&language=en-US&page=1`)
-  
+
+        const {data:{ results } } = await getAirToday()
         this.airingTodayList = results
 
-        const {data:{results:top}} = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/tv/top_rated?api_key=${process.env.VUE_APP_KEY}&language=en-US&page=1`)
-     
-         this.topRatedList = top
+        const {data:{ results:top } } = await getTvTopRated()
+        this.topRatedList = top
 
-        const {data:{results:onair}} = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/tv/on_the_air?api_key=${process.env.VUE_APP_KEY}&language=en-US&page=1`)
-
+        const {data:{ results:onair } } = await getOnAir()
         this.onAirList = onair
 
         this.loading = false
@@ -67,6 +66,7 @@ export default {
         this.loading = false
         if(err.response) {
          this.$notify({
+           group:'alert',
            type:'error',
            title:'<h1>Oops!</h1>',
            text:'something wrong!'

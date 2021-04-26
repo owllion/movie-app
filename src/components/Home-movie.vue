@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import { getUpcoming, getNowPlaying , getMovieTopRated } from '@/api/tmdb'
 import MultiSlide from '@/components/MultiSlide'
 import { mapGetters } from 'vuex'
 export default {
@@ -50,16 +51,13 @@ export default {
   async created() {
      try {
         this.loading = true
-        const {data:{results}} = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/movie/upcoming?api_key=${process.env.VUE_APP_KEY}&language=en-US&page=1`)
-
+        const {data:{results}} = await getUpcoming()
         this.upcomingList = results
 
-        const {data:{results:top}} = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/movie/top_rated?api_key=${process.env.VUE_APP_KEY}&language=en-US&page=1`)
-
+        const {data:{results:top}} = await getMovieTopRated()
          this.topRatedList = top
 
-        const {data:{results:now}} = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/movie/now_playing?api_key=${process.env.VUE_APP_KEY}&language=en-US&page=1`)
-
+        const {data:{results:now}} = await getNowPlaying()
         this.nowPlayingList = now  
 
         this.loading = false
@@ -67,6 +65,7 @@ export default {
         this.loading = false
         if(err.response) {
          this.$notify({
+           group:'alert',
            type:'error',
            title:'<h1>Oops!</h1>',
            text:'something wrong!'

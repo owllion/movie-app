@@ -97,6 +97,7 @@
 </template>
 
 <script>
+import { rateShow } from '@/api/tmdb'
 import StarRating from 'vue-star-rating'
 import scrollReveal from 'scrollreveal'
 export default {
@@ -133,7 +134,12 @@ export default {
         return 
       }else {
         try {
-           await this.$axios.post(`${process.env.VUE_APP_BASEURL}/${this.type}/${this.id}/rating?api_key=${process.env.VUE_APP_KEY}&guest_session_id=${this.$store.state.guest_session_id}`, { 'value':rating } )
+          const data = {
+            type:this.type,
+            id:this.id,
+            guestId:this.$store.state.guest_session_id
+          }
+           await rateShow(data, { 'value':rating }) 
 
            this.$notify({
               group: 'alert',

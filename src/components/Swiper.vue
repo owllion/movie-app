@@ -32,15 +32,6 @@
       Swiper,
       SwiperSlide
     },
-    computed: {
-      movie_genreIds() {
-        const idBatch = this.list?.map(i=> i.genre_ids)
-        console.log(idBatch)
-        const result =  this.genreList.filter(i=> {return idBatch.filter(id=> {return id.filter(nestId=> {return i.id === nestId})}) })
-        console.log(result)
-        return result
-      }  
-    },
     methods: {
       getColor(score) {
         if(score >= 8) {
@@ -52,7 +43,7 @@
         }
       }
     },
-    props:['type','list','status','tagline','title','score','lang','backdrop','genres','link'],
+    props:['type','list','status','tagline','title','score','lang','backdrop','link'],
     data() {
       return {
             genreList:[],
@@ -64,12 +55,6 @@
                 loop:true,                              
             }
         }
-    },
-    async created() {
-        const {data: { genres } } = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/genre/movie/list?api_key=${process.env.VUE_APP_KEY}&language=en-US`)
-
-        this.genreList = genres
-        console.log(this.link)
     }
   }
 </script>
