@@ -41,8 +41,9 @@ export default {
       show:''
     }
   },
-  async created(){  
-     try {
+  methods: {
+    async getData() {
+        try {
        this.loading = true
 
        const { data: { results } } = await getMoviePopular()   
@@ -64,7 +65,10 @@ export default {
          })
        }
     }
-     
+    }  
+  },
+  created(){  
+    this.getData()     
   }
 }
 </script>

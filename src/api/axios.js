@@ -1,7 +1,8 @@
 import axios from 'axios'
 
+const baseURL = process.env.VUE_APP_BASEURL
 const instance = axios.create({
-    baseURL:'https://api.themoviedb.org/3',
+    baseURL
 })
 
 export default instance

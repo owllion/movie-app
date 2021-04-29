@@ -23,26 +23,6 @@ Vue.use(VueAwesomeSwiper)
 import VuePageTransition from 'vue-page-transition'
 Vue.use(VuePageTransition)
 
-import VueI18n from 'vue-i18n'
-import { locale as zh } from './i18n/zh.js'     
-import { locale as en } from './i18n/en.js'   
-Vue.use(VueI18n)
-
-const lang = localStorage.getItem('lang')
-let locale = 'en'
-
-if ( lang ) {
-  locale = lang
-  store.commit('setLang', locale);
-} else {
-  store.commit('setLang', locale);
-}
-
-const i18n = new VueI18n({
-  locale: locale,
-  messages: { zh,en } 
-});
-
 import VueMeta from 'vue-meta'
 import Vuelidate from 'vuelidate';
 import 'vue-toast-notification/dist/theme-sugar.css';
@@ -66,12 +46,8 @@ router.beforeEach((to,from,next) => {
 	next()
 })
 
-
-
-
 new Vue({
 	router,
 	store,
-  i18n,
 	render: (h) => h(App)
 }).$mount('#app');
