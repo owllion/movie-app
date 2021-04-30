@@ -31,8 +31,6 @@ export default {
     },
     handleScroll () {
      const nav = this.$refs.navbar
-     console.log(nav)
-     console.log(window)
      if (window.scrollY > 20 || document.documentElement.scrollTop > 20) {
                
         nav.style.backgroundColor = "black"
