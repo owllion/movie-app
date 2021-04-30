@@ -13,7 +13,7 @@
       
     <!--img-->  
    <div class="relative">
-     <img class="swiper-img w-full h-full object-cover md:w-full " :src="`https://image.tmdb.org/t/p/w1280/${backdrop}`"/>
+     <img class="swiper-img w-full h-full object-cover md:w-full " :src="`https://image.tmdb.org/t/p/w1280/${backdrop}`" alt='epImg' />
 
       <!--info-->
       <div class="info">
