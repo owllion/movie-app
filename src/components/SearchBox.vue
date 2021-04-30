@@ -4,10 +4,10 @@
    <div class="backdrop w-full h-full absolute top-0 left-0 z-0" ></div>
 
    <transition name="search">
-   <div class="relative container mx-auto w-full  pl-8 pr-12 mt-5 md:w-full md:mx-0" v-show="showSearch">
+   <div class="relative container mx-auto w-full  pl-8 pr-24 mt-2 md:w-full md:mx-0 xs:pl-2 xs:pr-12" v-show="showSearch">
 
    <!--close-->
-   <div class="close-icon absolute top-4 right-2">
+   <div class="close-icon absolute top-4 right-6 xs:right-2">
      <box-icon name='x-circle' type='solid' color='#ffffff' class="cursor-pointer" size='md' @click="search = false"></box-icon>
    </div>
   <!--close-->
@@ -65,8 +65,7 @@ export default {
   max-width:100vw;
 }
 .backdrop {
-    background-image: linear-gradient( rgba(9, 7, 7, 0.6)
-    ,rgba(4, 1, 1, 0.5));
+    background:#000;
   }
 .search-box {
     position: relative;

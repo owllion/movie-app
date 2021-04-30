@@ -30,10 +30,15 @@ export default {
       this.search = !this.search
     },
     handleScroll () {
+     const nav = this.$refs.navbar
+     console.log(nav)
+     console.log(window)
      if (window.scrollY > 20 || document.documentElement.scrollTop > 20) {
-       this.$refs.navbar.style.backgroundColor = "black";
+               
+        nav.style.backgroundColor = "black"
+
       } else {
-       this.$refs.navbar.style.backgroundColor = "transparent";
+        nav.style.backgroundColor = "transparent";
       }
     }
   },
@@ -56,9 +61,11 @@ export default {
       }
     }
   },
-  
-  created() {
-    window.addEventListener('scroll', this.handleScroll,true);
+  mounted() {
+    this.$nextTick(()=> {
+        window.addEventListener('scroll', this.handleScroll,true)
+    })
+    
   }
 }
 </script>
