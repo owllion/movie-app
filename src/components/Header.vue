@@ -9,11 +9,11 @@
      </div>
     <!--menu-->
 
-    <!--search-->
+    <!--search icon-->
       <div >
         <box-icon name='search-alt' animation='tada' class="search-icon cursor-pointer "  size='md'  color='white' @click='setSearch' v-if='search === false'></box-icon>    
      </div>
-     <!--search-->
+     <!--search icon-->
 
    </nav>
    </div>
