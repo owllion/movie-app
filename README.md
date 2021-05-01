@@ -18,7 +18,7 @@
 
 ## 專案運行
 ```
-git clone https://github.com/owllion/KOZA.git
+git clone https://github.com/owllion/movie-app.git
 
 npm install
 
