@@ -1,18 +1,35 @@
 <template>
 <div class="wrapper">
 
-  <div class="container w-120 mx-auto p-16 md:w-full">
+  <div class="container w-120 mx-auto p-16 xl:w-full">
     <div class="upcoming mb-8">
-      <h3 class="tracking-widest p-3 mb-5 text-3xl font-semibold  text-white md:text-sm md:text-center">UPCOMING</h3>
+      <div class="flex flex-wrap items-center justify-between">
+        <h3 class="tracking-widest p-3 mb-5 text-3xl font-semibold  text-white md:text-xl md:mb-0 md:text-center md:w-full md:tracking-wider">UPCOMING</h3>
+
+        <router-link to="/list/movie/upcoming/UPCOMING" class="text-white text-xl block md:w-full md:text-center p-3 border-2 border-solid border-green-700  md:mb-10">See More<box-icon name='right-arrow-alt' type='solid' animation='burst' color='#fff' class="align-text-bottom ml-2"></box-icon></router-link>
+        
+        </div>
+      
             <MultiSlide :list=upcomingList link='movie' /> 
     </div>
 
      <div class="nowplaying mb-8">
-       <h3 class="tracking-widest p-3 mb-5 text-3xl font-semibold text-white md:text-sm md:text-center">NOW PLAYING</h3>
+       <div class="flex flex-wrap items-center justify-between">
+        <h3 class="tracking-widest p-3 mb-5 text-3xl font-semibold  text-white md:text-xl md:mb-0 md:text-center md:w-full md:tracking-wider">NOW PLAYING</h3>
+
+        <router-link to="/list/movie/now_playing/NOW PLAYING" class="text-white text-xl block md:w-full md:text-center p-3 border-2 border-solid border-green-700  md:mb-10">See More<box-icon name='right-arrow-alt' type='solid' animation='burst' color='#fff' class="align-text-bottom ml-2"></box-icon></router-link>
+        
+        </div>
+      
             <MultiSlide :list=nowPlayingList link='movie' /> 
     </div>
      <div class="toprated">
-       <h3 class="tracking-widest p-3 mb-5 text-3xl font-semibold text-white md:text-sm md:text-center">TOP RATED</h3>
+       <div class="flex flex-wrap items-center justify-between">
+        <h3 class="tracking-widest p-3 mb-5 text-3xl font-semibold  text-white md:text-xl md:mb-0 md:text-center md:w-full md:tracking-wider">TOP RATED</h3>
+
+        <router-link to="/list/movie/top_rated/TOP RATED" class="text-white text-xl block md:w-full md:text-center p-3 border-2 border-solid border-green-700  md:mb-10">See More<box-icon name='right-arrow-alt' type='solid' animation='burst' color='#fff' class="align-text-bottom ml-2"></box-icon></router-link>
+        
+        </div>
             <MultiSlide :list=topRatedList link='movie' /> 
     </div>
 

@@ -46,6 +46,11 @@ const routes = [
       } 
     ]
   },
+   {
+    path: '/list/:type/:sort/:title',
+    name: 'List',
+    component: () => import('../views/List.vue')
+  },
   {
     path: '/profile',
     name: 'Profile',

@@ -100,9 +100,7 @@
 <style lang="scss" scoped>
 $font:'Eagle Lake', cursive;
 $font-else:'Varela Round', sans-serif;
-.swiper-container {   
-  //  padding: 0 3.5rem;
-}
+
 
 h3{
     font-family: $font;
