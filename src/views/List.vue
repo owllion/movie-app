@@ -72,19 +72,29 @@ export default {
                 title:'<h1>OH NO!</h1>',
                 text:'something wrong!'
                 })
-            }
-            }
-        next()
+          }
+        }
+     next()
   },
     methods: {
        
       async loadMore() {  
-
-        const {data: {results}} = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/${this.type}/${this.sort}?api_key=${process.env.VUE_APP_KEY}&language=en-US&page=${this.page++}`)
+       try {
+          const {data: {results}} = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/${this.type}/${this.sort}?api_key=${process.env.VUE_APP_KEY}&language=en-US&page=${this.page++}`)
 
          console.log(this.page)
 
-        this.list = [...this.list, ...results]
+         this.list = [...this.list, ...results]
+       }catch(err) {
+         if(err.response) {
+             this.$notify({
+              type:'error',
+              title:'<h1>OH NO!</h1>',
+              text:'something wrong!'
+              })
+         }
+       }
+     
         }
     },
    async created() {
