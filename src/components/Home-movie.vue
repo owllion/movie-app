@@ -6,7 +6,7 @@
       <div class="flex flex-wrap items-center justify-between">
         <h3 class="tracking-widest p-3 mb-5 text-3xl font-semibold  text-white md:text-xl md:mb-0 md:text-center md:w-full md:tracking-wider">UPCOMING</h3>
 
-        <router-link to="/list/movie/upcoming/UPCOMING" class="text-white text-xl block md:w-full md:text-center p-3 border-2 border-solid border-green-700  md:mb-10">See More<box-icon name='right-arrow-alt' type='solid' animation='burst' color='#fff' class="align-text-bottom ml-2"></box-icon></router-link>
+        <router-link to="/list/movie/upcoming/UPCOMING" class="text-white text-xl block md:w-full md:text-center p-2 border-b-2 md:border-2 border-solid border-green-700  md:mb-10">See More<box-icon name='right-arrow-alt' type='solid' animation='burst' color='#fff' class="align-text-bottom ml-2"></box-icon></router-link>
         
         </div>
       
@@ -17,7 +17,7 @@
        <div class="flex flex-wrap items-center justify-between">
         <h3 class="tracking-widest p-3 mb-5 text-3xl font-semibold  text-white md:text-xl md:mb-0 md:text-center md:w-full md:tracking-wider">NOW PLAYING</h3>
 
-        <router-link to="/list/movie/now_playing/NOW PLAYING" class="text-white text-xl block md:w-full md:text-center p-3 border-2 border-solid border-green-700  md:mb-10">See More<box-icon name='right-arrow-alt' type='solid' animation='burst' color='#fff' class="align-text-bottom ml-2"></box-icon></router-link>
+        <router-link to="/list/movie/now_playing/NOW PLAYING" class="text-white text-xl block md:w-full md:text-center p-2 border-b-2 md:border-2 border-solid border-green-700  md:mb-10">See More<box-icon name='right-arrow-alt' type='solid' animation='burst' color='#fff' class="align-text-bottom ml-2"></box-icon></router-link>
         
         </div>
       
@@ -27,7 +27,7 @@
        <div class="flex flex-wrap items-center justify-between">
         <h3 class="tracking-widest p-3 mb-5 text-3xl font-semibold  text-white md:text-xl md:mb-0 md:text-center md:w-full md:tracking-wider">TOP RATED</h3>
 
-        <router-link to="/list/movie/top_rated/TOP RATED" class="text-white text-xl block md:w-full md:text-center p-3 border-2 border-solid border-green-700  md:mb-10">See More<box-icon name='right-arrow-alt' type='solid' animation='burst' color='#fff' class="align-text-bottom ml-2"></box-icon></router-link>
+        <router-link to="/list/movie/top_rated/TOP RATED" class="text-white text-xl block md:w-full md:text-center p-2 border-b-2 md:border-2 border-solid border-green-700  md:mb-10">See More<box-icon name='right-arrow-alt' type='solid' animation='burst' color='#fff' class="align-text-bottom ml-2"></box-icon></router-link>
         
         </div>
             <MultiSlide :list=topRatedList link='movie' /> 

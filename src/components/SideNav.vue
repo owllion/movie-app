@@ -7,7 +7,7 @@
 
     <transition name="slide-side">
     <!-- side menu -->
-      <div v-show='nav' class="aside bg-black w-72 h-full fixed top-0 bottom-0 flex-col z-50 md:w-full">
+      <div v-show='nav' class="aside bg-black w-72 h-full fixed top-0 bottom-0 flex-col z-50 md:w-full overflow-auto">
 
         <!-- close icon -->
         <div class="flex justify-end p-5 md:pr-10">
@@ -24,7 +24,7 @@
         <!--link -->
         <ul class=" text-xl  w-full font-normal mt-10"> 
          <li v-for="(item,i) in navText" :key='i' class="mb-5">
-              <router-link  :to="{name:`${item.name}` }" class=" p-6  nav-text block text-white text-center hover:text-black hover:bg-white">{{item.link}}</router-link></li>
+              <router-link :to="item.path" class=" p-4  text-base nav-text block text-white text-center hover:text-black hover:bg-white">{{item.title}}</router-link></li>
        </ul>
        <!--link -->
 
@@ -57,13 +57,38 @@ export default {
       return {
         navText:[
            {
-             name:'Login',
-             link:'SIGN IN'
+             path:'/login',
+             title:'SIGN IN'
            },
            {
-             name:'Profile',
-             link:'RATED '
+             path:'/profile',
+             title:'RATED '
            },
+           {
+             path:'/list/movie/upcoming/UPCOMING',
+             title:'UPCOMING'
+           },
+           {
+             path:'/list/movie/now_playing/NOW PLAYING',
+             title:'NOW PLAYING'
+           },
+           {
+             path:'/list/movie/top_rated/TOP RATED',
+             title:'MOVIE-TOP RATED'
+           },
+           {
+             path:'/list/tv/airing_today/AIRING TODAY',
+             title:'AIRING TODAY'
+           },
+           {
+             path:'/list/tv/on_the_air/ON THE AIR',
+             title:'ON THE AIR'
+           },
+           {
+             path:'/list/tv/top_rated/TOP RATED',
+             title:'TV-TOP RATED '
+           }
+           
         ]
     }
   },

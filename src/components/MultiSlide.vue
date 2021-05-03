@@ -7,8 +7,8 @@
          <div class="backdrop w-full h-full absolute top-0 left-0 z-10 pointer-events-none"></div>
          </router-link>
 
-        <h5 class=" pt-5 text-white text-center " v-if=item.title>{{item.title}}</h5>
-        <h5 class="pt-2  text-white text-center " v-if=item.name>{{item.name}}</h5>
+        <h5 class=" pt-5 text-white text-center xl:text-xs" v-if=item.title>{{item.title}}</h5>
+        <h5 class="pt-2  text-white text-center xl:text-xs" v-if=item.name>{{item.name}}</h5>
         <h5 class=" pt-2 text-white text-center tracking-wide" v-if=item.air_date>{{item.air_date}}</h5>
       
         <div>

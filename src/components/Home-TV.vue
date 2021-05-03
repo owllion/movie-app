@@ -1,18 +1,30 @@
 <template>
 <div class="wrapper">
 
-  <div class="container w-120 mx-auto p-16 md:w-full">
-    <div class="upcoming mb-8">
-      <h3 class="tracking-widest p-3 mb-5 text-3xl font-semibold  text-white md:text-sm md:text-center">AIRING TODAY</h3>
+  <div class="container w-120 mx-auto p-16 xl:w-full">
+    <div class="air mb-8">
+      <div class="flex flex-wrap items-center justify-between mb-5">
+        <h3 class="tracking-widest p-3 text-3xl font-semibold  text-white md:text-xl md:text-center md:w-full md:tracking-wider">AIRING TODAY</h3>
+
+        <router-link to="/list/tv/airing_today/AIRING TODAY" class="text-white text-xl block md:w-full md:text-center p-2 border-b-2 md:border-2 border-solid border-green-700  md:mb-10">See More<box-icon name='right-arrow-alt' type='solid' animation='burst' color='#fff' class="align-text-bottom ml-2"></box-icon></router-link>
+      </div>
             <MultiSlide :list=airingTodayList link='tv' /> 
     </div>
 
-     <div class="nowplaying mb-8">
-       <h3 class="tracking-widest p-3 mb-5 text-3xl font-semibold text-white md:text-sm md:text-center">ON THE AIR</h3>
+     <div class="onair mb-8">
+       <div class="flex flex-wrap items-center justify-between mb-5">
+        <h3 class="tracking-widest p-3 text-3xl font-semibold  text-white md:text-xl md:text-center md:w-full md:tracking-wider">ON THE AIR</h3>
+
+        <router-link to="/list/tv/on_the_air/ON THE AIR" class="text-white text-xl block md:w-full md:text-center p-2 border-b-2 md:border-2 border-solid border-green-700  md:mb-10">See More<box-icon name='right-arrow-alt' type='solid' animation='burst' color='#fff' class="align-text-bottom ml-2"></box-icon></router-link>
+      </div>
             <MultiSlide :list=onAirList link='tv' /> 
     </div>
      <div class="toprated">
-       <h3 class="tracking-widest p-3 mb-5 text-3xl font-semibold text-white md:text-sm md:text-center">TOP RATED</h3>
+       <div class="flex flex-wrap items-center justify-between mb-5">
+        <h3 class="tracking-widest p-3 text-3xl font-semibold  text-white md:text-xl md:text-center md:w-full md:tracking-wider">TOP RATED</h3>
+
+        <router-link to="/list/tv/top_rated/TOP RATED" class="text-white text-xl block md:w-full md:text-center p-2 border-b-2 md:border-2 border-solid border-green-700  md:mb-10">See More<box-icon name='right-arrow-alt' type='solid' animation='burst' color='#fff' class="align-text-bottom ml-2"></box-icon></router-link>
+      </div>
             <MultiSlide :list=topRatedList link='tv' /> 
     </div>
 

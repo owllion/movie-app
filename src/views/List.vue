@@ -8,7 +8,7 @@
         </a>
       </div>
       <!--back icon-->
-    <h1 class="title tracking-widest text-white text-3xl tracking-wider font-bold mb-8 md:text-4xl xs:text-lg md:tracking-wider">{{title}}</h1>
+    <h1 class="title tracking-widest text-white text-3xl tracking-wider font-bold mb- md:text-xl xs:text-lg md:tracking-wider">{{title}}</h1>
     </div>
    <!--inner-container-->
     <div class="inner-container flex flex-wrap justify-center md:px-16 xs:px-2">
@@ -56,11 +56,34 @@ export default {
             return false
         },
     },
+    async beforeRouteUpdate (to, next) {
+        const type = to.params.type
+        const sort = to.params.sort
+        this.title = to.params.title
+        try {
+             const {data: {results}} = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/${type}/${sort}?api_key=${process.env.VUE_APP_KEY}&language=en-US&page=1`)
+
+             this.list = results
+
+            }catch(err){
+            if(err.response) {
+                this.$notify({
+                type:'error',
+                title:'<h1>OH NO!</h1>',
+                text:'something wrong!'
+                })
+            }
+            }
+        next()
+  },
     methods: {
-      async loadMore() {
-         
-        const {data: {results}} = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/movie/upcoming?api_key=${process.env.VUE_APP_KEY}&language=en-US&page=${this.page++}`)
-       console.log(this.page)
+       
+      async loadMore() {  
+
+        const {data: {results}} = await this.$axios.get(`${process.env.VUE_APP_BASEURL}/${this.type}/${this.sort}?api_key=${process.env.VUE_APP_KEY}&language=en-US&page=${this.page++}`)
+
+         console.log(this.page)
+
         this.list = [...this.list, ...results]
         }
     },
