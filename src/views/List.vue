@@ -33,7 +33,7 @@
      <!--inner-container-->
      <div class="btn text-center flex justify-center px-6" v-show='!hidden'>
          <button class="text-white my-6 p-5 trakcing-wider text-lg border-solid border-2 border-blue-800 w-48 block md:w-full hover:text-blue-800 hover:bg-white transition duration-500 font-bold"  @click="loadMore()">LOAD MORE</button>
-         {{page}}
+         
      </div>
     </div>
 </template>
